@@ -1,4 +1,4 @@
-import Header from "../SectionHeader/header";
+import Header from "../SectionHeader/Header.jsx";
 import ServerSpedResult from "./ServerSpeedResult";
 
 export default function ServerSpeedTest() {
