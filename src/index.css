@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --color-lightBackground: #F9FAFB;
+    --color-lightComponentBackground: #FFFFFF;
+    --color-lightNavbarText: #64748B;
+    --color-lightBorderColor: #E2E8F0;
+    --color-lightNavItemHoverBg: #EEF2FF;
+    --color-lightNavItemHoverText: #000000;
+    --color-lightNavItemSelectedText: #4F46E5;
+    --color-lightWelcomeText: #64748B;
+
+    /* Dark */
+    --color-darkBackground: #0D0F11;
+    --color-darkComponentBackground: #191D23;
+    --color-darkNavbarText: #B8C0CC;
+    --color-darkElementHoverBg: #262C36;
+    --color-darkWelcomeText: #FFFFFF;
+
+
+    /* Dashboard */
+
+    --color-lightHeaderText: #6F7482;
+    --color-lightInputElementBgColor: #EEEEEE;
+    --color-lightInputElementTextColor: #B8BCCA;
+    --color-lightInputElementBorderColor: #B8BCCA;
+    --color-lightButtonBgColor: #ECEDEE;
+    --color-lightDashboardWidgetComponentIconBgColorBlue: #EFF4FF;
+    --color-lightDashboardWidgetComponentIconColorBlue: #5B93FF;
+    --color-lightDashboardWidgetComponentIconBgColorYellow: #FFF7E1;
+    --color-lightDashboardWidgetComponentIconColorYellow: #FFC327;
+    --color-lightDashboardWidgetComponentIconBgColorOrange: #FFF4F0;
+    --color-lightDashboardWidgetComponentIconColorOrange: #FF8F68;
+    --color-lightDashboardWidgetComponentIconBgColorPurple: #EFEFFF;
+    --color-lightDashboardWidgetComponentIconColorPurple: #605BFF;
+    --color-lightDashboardWidgetComponentCountTextColor: #000000;
+    --color-lightDashboardWidgetComponentDescTextColor: #6F7482;
+    --color-DashboardWidgetComponentWorkingCountIndicator: #00D9C0;
+    --color-DashboardWidgetComponentNotWorkingCountIndicator: #D91200;
+    --color-lightButton: #4F46E5;
+
+    /* Dark */
+    --color-darkInputElementBgColor: #262C36;
+    --color-darkWidgetText:#E3E3E3;
+    --color-darkHeaderButtonText:#B8C0CC;
+    --color-darkDashboardWidgetComponentIconBgColorBlue: #172339;
+    --color-darkDashboardWidgetComponentIconBgColorYellow: #474231;
+    --color-darkDashboardWidgetComponentIconBgColorOrange: #30282A;
+    --color-darkDashboardWidgetComponentIconBgColorPurple: #202339;
+
+
+    
+    /* Dashboard Table */
+    --color-tableHeader: #EEF1F8;
+    --color-lightTableRowBorder: #D8DDE2;
+    --color-lightTableDataCellText: #8690A8;
+    --color-lightTableHeaderCellText: #635D64;
+    --color-lightStatusBgOn: #ECFDF5;
+    --color-lightStatusTextOn: #059669;    
+    --color-lightStatusBgOf: #FDECEC;
+    --color-lightStatusTextOf: #D91200;
+
+    /* Dashboard Table Dark */
+    --color-darkTableHeader: #262C36;
+    --color-darkTableHeaderCellText: #B8C0CC;
+    --color-darkTableDataCellText: #E3E3E3;
+    --color-darkTableRowBorder: #576776;
+    --color-darkStatusBgOn: #1C3122;
+    --color-darkStatusBgOf: #311C1C;
+    --color-darkStatusTextOf: #D62A1B;
+
+    /* NetworkList */
+    --color-NLHeaderText:#898B97;
+
+    /* Font style */
+    --font-poppins: Poppins, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100wv;
+    /* @apply bg-[#F7F6F9] ; */
+    @apply bg-lightBackground dark:bg-darkBackground;
+}
+
+#root {
+    height: 100%;
+}
+
+/* Navbar */
+.nav-header{
+    @apply flex w-full h-[5rem] items-center p-5 gap-3;
+}
+
+.nav-items-center{
+    @apply items-center;
+}
+
+.nav-logo{
+    @apply h-[3.5rem] w-[3.5rem];
+}
+
+.nav-logo-closed{
+    @apply h-[2.5rem] w-[2.5rem];   
+}
+
+.navItem {
+    @apply h-[3rem] flex items-center p-5 w-[86%] rounded-full transition-all ease-in-out gap-2;
+}
+
+.navItem:hover {
+    @apply bg-lightNavItemHoverBg dark:bg-darkElementHoverBg;
+}
+
+.navItem.active{
+    @apply bg-lightNavItemHoverBg dark:bg-darkElementHoverBg;
+}
+
+.navItem.active span{
+    @apply text-lightNavItemSelectedText;
+}
+
+.nav-item-closed{
+    @apply h-10 w-2;
+}
+
+.nav-justify-center{
+    @apply justify-center; 
+}
+
+.nav-item-closed-width{
+    @apply w-[3rem];
+}
+
+.nav-justify-center:hover span{
+    @apply mr-0;
+}
+
+.hidden-nav-item-title{
+    @apply hidden;
+}
+
+/* Dashboard */
+.dashboard-container{
+    @apply flex flex-col h-full w-full items-center pl-10 pr-8 gap-3 overflow-auto; 
+}
+
+.widget-container{
+    @apply h-40 xl:min-w-[250px] rounded-xl bg-lightComponentBackground dark:bg-darkComponentBackground shadow-md px-4 pt-3.5 flex-grow;
+}
+
+/* Dashboard Table */
+.table {
+    @apply flex flex-col w-full;
+}
+
+.tr {
+    @apply flex items-center h-12 w-full border-b-1 flex-grow border-lightTableRowBorder dark:border-darkTableRowBorder;
+}
+
+.header-row{
+    @apply flex items-center h-12 w-full border-b-1 flex-grow border-lightTableRowBorder dark:border-darkTableRowBorder rounded-t-xl overflow-hidden;
+}
+
+.th {
+    @apply h-full w-full flex bg-tableHeader flex-grow dark:bg-darkTableHeader justify-center items-center text-[clamp(0.75rem,1vw,0.875rem)] font-semibold text-lightTableHeaderCellText dark:text-darkTableHeaderCellText; 
+}
+
+.td {
+    @apply h-full flex items-center justify-center text-center text-[clamp(0.75rem,1vw,0.875rem)] flex-grow text-lightTableDataCellText dark:text-darkTableDataCellText;
+}
+
+/* Network List */
+
+.nltr{
+    @apply flex items-center h-18 w-full border-b-1 flex-grow border-lightTableRowBorder dark:border-darkTableRowBorder;
+}
+
+.nlth{
+    @apply  h-full flex justify-center items-center text-center flex-grow text-NLHeaderText;
+}
+
+.nltd{
+    @apply  h-full flex items-center justify-center text-center text-sm flex-grow text-lightTableDataCellText dark:text-darkTableDataCellText;
+}
+
+/* Port Widget */
+.pw-container{
+    @apply w-full h-[75%] mt-8 flex flex-wrap gap-4 overflow-auto;
+}
+
+.pw-data-container{
+    @apply w-full h-1/2 rounded-md bg-[#F8FAFC] text-[#2E3338] flex items-center pl-1 dark:bg-[#262C36] dark:text-[#B8C0CC];
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Profile */
+.profileContainer{
+    @apply w-full mt-5 h-[85%] flex flex-wrap bg-lightComponentBackground rounded-2xl shadow-md px-9 pt-16 md:pt-6 dark:bg-darkComponentBackground overflow-auto gap-10;
+}

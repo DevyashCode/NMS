@@ -1,0 +1,30 @@
+# Node modules
+node_modules/
+
+# Vite build output
+dist/
+
+# Bun lock file (if you're using Bun but want to ignore it)
+bun.lock
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE-specific (optional)
+.vscode/
+.idea/
+*.swp
+
+# Output CSS (optional, if generated)
+output.css
