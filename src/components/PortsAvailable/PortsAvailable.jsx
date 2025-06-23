@@ -1,4 +1,4 @@
-import Header from "../SectionHeader/header";
+import Header from "../SectionHeader/Header.jsx";
 import SearchIpPorts from "./SearchPorts";
 import PortWidget from "./portwidget";
 import { useSelector } from "react-redux";
