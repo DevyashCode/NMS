@@ -3,7 +3,7 @@ import { HiServerStack } from "react-icons/hi2";
 import { PiPlusCircleFill } from "react-icons/pi";
 import { HiSwitchHorizontal } from "react-icons/hi";
 import DashboardTable from "./DashboardTable.jsx";
-import Header from "../SectionHeader/header.jsx";
+import Header from "../SectionHeader/Header.jsx";
 import DashboardWidget from "./Widget.jsx";
 
 function Dashboard() {
