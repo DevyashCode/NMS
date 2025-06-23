@@ -1,4 +1,4 @@
-import Header from "../SectionHeader/header";
+import Header from "../SectionHeader/Header.jsx";
 import NetworkTable from "./NetworkTable";
 
 export default function NetworkList() {
