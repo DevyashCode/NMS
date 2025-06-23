@@ -8,4 +8,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  preview: {
+    port: 10000,
+    host: true,
+    allowedHosts: ['nms-xaio.onrender.com'] 
+  }
 })
