@@ -1,4 +1,4 @@
-import Header from "../SectionHeader/header";
+import Header from "../SectionHeader/Header.jsx";
 import profileImage from "./BigShoesAvatar.png";
 import { FormInput, FormSelect } from "../Form/formInput";
 
