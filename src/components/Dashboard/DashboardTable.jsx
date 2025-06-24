@@ -8,81 +8,105 @@ import { FaSort } from "react-icons/fa";
 import { FaSortAlphaDownAlt } from "react-icons/fa";
 import { FaSortAlphaUp } from "react-icons/fa";
 import Filters from "./Filters";
-
-const columns = [
-    {
-        accessorKey: "status",
-        header: "Status",
-        size: 100,
-        // enableSorting:false,
-        cell: (props) => <p className={(props.getValue() == "on" ? "bg-lightStatusBgOn dark:bg-darkStatusBgOn text-lightStatusTextOn" : "bg-lightStatusBgOf dark:bg-darkStatusBgOf text-lightStatusTextOf dark:text-darkStatusTextOf") + " flex items-center justify-center w-14 h-7 rounded-full"}><VscCircleFilled className="mr-1" />{props.getValue() == "on" ? " ON" : " OF"}</p>
-    },
-    {
-        accessorKey: "ipAddress",
-        header: "IP Address",
-        size: 100,
-        cell: (props) => <p>{props.getValue()}</p>
-    },
-    {
-        accessorKey: "hostName",
-        header: "Host Name",
-        size: 90,
-        enableSorting: false,
-        cell: (props) => <p>{props.getValue()}</p>
-    },
-    {
-        accessorKey: "location",
-        header: "Location",
-        size: 154,
-        enableSorting: false,
-        cell: (props) => <p>{props.getValue()}</p>
-    },
-    {
-        accessorKey: "type",
-        header: "Type",
-        size: 70,
-        enableSorting: false,
-        cell: (props) => <p>{props.getValue()}</p>
-    },
-    {
-        accessorKey: "os",
-        header: "OS",
-        size: 130,
-        enableSorting: false,
-        cell: (props) => <p>{props.getValue()}</p>
-    },
-    {
-        accessorKey: "owner",
-        header: "Owner",
-        size: 100,
-        enableSorting: false,
-        cell: (props) => <p>{props.getValue()}</p>
-    },
-    {
-        accessorKey: "description",
-        header: "Description",
-        size: 224,
-        enableSorting: false,
-
-        cell: (props) => <p>{props.getValue()}</p>
-    },
-    {
-        accessorKey: "",
-        header: "Port",
-        size: 90,
-        enableSorting: false,
-        cell: (props) =>
-            <>
-                <button className="h-7 w-15 bg-lightButton text-xs rounded-full text-white max-h-[34px] font-semibold flex justify-center items-center"><BsUsbSymbol className="mr-0.5" />Port</button>
-            </>
-    },
-]
-
+import PortDisplay from "./PortDisplay";
 
 export default function DashboardTable() {
+    const columns = [
+        {
+            accessorKey: "status",
+            header: "Status",
+            size: 100,
+            // enableSorting:false,
+            cell: (props) => <p className={(props.getValue() == "on" ? "bg-lightStatusBgOn dark:bg-darkStatusBgOn text-lightStatusTextOn" : "bg-lightStatusBgOf dark:bg-darkStatusBgOf text-lightStatusTextOf dark:text-darkStatusTextOf") + " flex items-center justify-center w-14 h-7 rounded-full"}><VscCircleFilled className="mr-1" />{props.getValue() == "on" ? " ON" : " OF"}</p>
+        },
+        {
+            accessorKey: "ipAddress",
+            header: "IP Address",
+            size: 100,
+            cell: (props) => <p>{props.getValue()}</p>
+        },
+        {
+            accessorKey: "hostName",
+            header: "Host Name",
+            size: 90,
+            enableSorting: false,
+            cell: (props) => <p>{props.getValue()}</p>
+        },
+        {
+            accessorKey: "location",
+            header: "Location",
+            size: 154,
+            enableSorting: false,
+            cell: (props) => <p>{props.getValue()}</p>
+        },
+        {
+            accessorKey: "type",
+            header: "Type",
+            size: 70,
+            enableSorting: false,
+            cell: (props) => <p>{props.getValue()}</p>
+        },
+        {
+            accessorKey: "os",
+            header: "OS",
+            size: 130,
+            enableSorting: false,
+            cell: (props) => <p>{props.getValue()}</p>
+        },
+        {
+            accessorKey: "owner",
+            header: "Owner",
+            size: 100,
+            enableSorting: false,
+            cell: (props) => <p>{props.getValue()}</p>
+        },
+        {
+            accessorKey: "description",
+            header: "Description",
+            size: 224,
+            enableSorting: false,
+
+            cell: (props) => <p>{props.getValue()}</p>
+        },
+        {
+            accessorKey: "",
+            header: "Port",
+            size: 90,
+            enableSorting: false,
+            cell: (props) => {
+                const rowIp = props.row.original.ipAddress;
+
+                return (
+                    <button
+                        onClick={() => {
+                            handlePortClick(rowIp);
+                        }}
+                        className="h-7 w-15 bg-lightButton text-xs rounded-full text-white max-h-[34px] font-semibold flex justify-center items-center"
+                    >
+                        <BsUsbSymbol className="mr-0.5" />
+                        Port
+                    </button>
+                );
+            },
+        }
+    ]
+
     const data = useSelector(dbSelector);
     const [globalFilter, setGlobalFilter] = useState('');
     const [columnFilter, setColumnFilter] = useState([]);
+    const [ip, setIp] = useState("");
+    const [showPopup, setShowPopup] = useState(false);
+
+    const handlePortClick = (selectedIp) => {
+        setIp(selectedIp);
+        setShowPopup(true);
+    };
+
+    const handlePopupClose=()=>{
+        setIp("");
+        setShowPopup(false);
+    }
+
     const [pagination, setPagination] = useState({
         pageSize: 5,
         pageIndex: 0
@@ -102,14 +126,13 @@ export default function DashboardTable() {
         getFilteredRowModel: getFilteredRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
-        columnResizeMode: "onChange",
     });
 
     const handleFilterChange = (type) => {
         if (role === 'All') {
-            setColumnFilter([]); // Clear filter
+            setColumnFilter([]);
         } else {
-            setColumnFilter([{ id: 'type', value: type }]); 
+            setColumnFilter([{ id: 'type', value: type }]);
         }
     };
 
@@ -129,8 +152,8 @@ export default function DashboardTable() {
                 />
             </div>
 
-            <div className="mt-8 rounded-xl">
-                <div className="flex flex-col flex-grow">
+            <div className="mt-8 rounded-xl overflow-auto">
+                <div className="flex flex-col flex-grow overflow-auto">
                     {
                         table.getHeaderGroups().map(headerGroup => <div className="header-row" key={headerGroup.id}>
                             {
@@ -175,6 +198,7 @@ export default function DashboardTable() {
                     <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} className="h-10 w-10 bg-lightButton rounded-md text-white max-h-[34px]">{">"}</button>
                 </div>
             </div>
+            {showPopup && <PortDisplay ip={ip} handlePopupClose={handlePopupClose} />}
         </>
     )
 }

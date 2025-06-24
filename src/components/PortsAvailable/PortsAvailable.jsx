@@ -6,7 +6,6 @@ import { portSelector } from "../../Redux/Reducers/portReducer";
 
 export default function PortsAvailable() {
     const ports = useSelector(portSelector);
-    console.log(ports);
     return (
         <>
             <div className="flex flex-col h-full w-full items-center pl-10 pr-8">
@@ -20,8 +19,8 @@ export default function PortsAvailable() {
                 {/* Ports Container */}
                 <div className="pw-container scrollbar-hide">
                     {
-                        ports.map((port)=>{
-                            return <PortWidget ipAddress={port.ipAddress} macAddress={port.macAddress} range={port.portRange}/>
+                        ports.map((port,index)=>{
+                            return <PortWidget key={index} ipAddress={port.ipAddress} macAddress={port.macAddress} range={port.portRange}/>
                         })
                     }
                 </div>
