@@ -81,7 +81,8 @@ const columns = [
 
 export default function DashboardTable() {
     const data = useSelector(dbSelector);
-    const [globalFilter, setGlobalFilter] = useState('')
+    const [globalFilter, setGlobalFilter] = useState('');
+    const [columnFilter, setColumnFilter] = useState([]);
     const [pagination, setPagination] = useState({
         pageSize: 5,
         pageIndex: 0
@@ -91,9 +92,11 @@ export default function DashboardTable() {
         columns,
         state: {
             globalFilter,
+            columnFilter,
             pagination
         },
         onGlobalFilterChange: setGlobalFilter,
+        onColumnFiltersChange: setColumnFilter,
         onPaginationChange: setPagination,
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
@@ -101,6 +104,14 @@ export default function DashboardTable() {
         getPaginationRowModel: getPaginationRowModel(),
         columnResizeMode: "onChange",
     });
+
+    const handleFilterChange = (type) => {
+        if (role === 'All') {
+            setColumnFilter([]); // Clear filter
+        } else {
+            setColumnFilter([{ id: 'type', value: type }]); 
+        }
+    };
 
     return (
         <>

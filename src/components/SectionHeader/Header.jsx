@@ -20,14 +20,14 @@ export default function Header({headerName}) {
     return (
         <>
             <div className="w-full min-h-20 flex items-center">
-                {(isHidden || window.innerWidth<=1184) ? <IoMenu className="text-2xl text-lightHeaderText dark:text-[#6F7482] mr-2" onClick={()=>{toggleSV()}}/> : <></>}
+                {(isHidden || window.innerWidth<=1184) ? <IoMenu className="text-3xl text-lightHeaderText dark:text-[#6F7482] mr-2" onClick={()=>{toggleSV()}}/> : <></>}
                 <h1 className="text-xl text-lightHeaderText dark:text-[#6F7482]">{headerName}</h1>
                 <div className="flex-grow"></div>
-                <div className="h-9 w-9 rounded-lg flex items-center justify-center mr-1 hover:bg-lightButtonBgColor dark:hover:bg-darkElementHoverBg dark:text-darkHeaderButtonText" onClick={()=>{dispatch(themeActions.toggle())}}>
+                <div className="h-9 w-9 rounded-lg flex items-center justify-center mr-1 text-lightHeaderText hover:bg-lightButtonBgColor dark:hover:bg-darkElementHoverBg dark:text-darkHeaderButtonText" onClick={()=>{dispatch(themeActions.toggle())}}>
                     {/* <MdOutlineLightMode className="h-6 w-6"/> */}
                     { theme === "dark" ? <MdOutlineLightMode className="h-6 w-6"/> : <MdOutlineDarkMode className="h-6 w-6"/> }
                 </div>
-                <div className="h-9 w-9 rounded-lg flex items-center justify-center hover:bg-lightButtonElementColor dark:hover:bg-darkElementHoverBg dark:text-darkHeaderButtonText">
+                <div className="h-9 w-9 rounded-lg flex items-center justify-center text-lightHeaderText hover:bg-lightButtonBgColor dark:hover:bg-darkElementHoverBg dark:text-darkHeaderButtonText">
                     <IoIosNotificationsOutline className="h-6 w-6" />
                 </div>
             </div>

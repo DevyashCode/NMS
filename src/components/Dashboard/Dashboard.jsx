@@ -5,6 +5,8 @@ import { HiSwitchHorizontal } from "react-icons/hi";
 import DashboardTable from "./DashboardTable.jsx";
 import Header from "../SectionHeader/Header.jsx";
 import DashboardWidget from "./Widget.jsx";
+import statusCounter from "./statusCounter.jsx";
+
 
 function Dashboard() {
     const widgets = [
@@ -13,28 +15,28 @@ function Dashboard() {
             bgColor: "bg-lightDashboardWidgetComponentIconBgColorBlue dark:bg-darkDashboardWidgetComponentIconBgColorBlue",
             iconColor: "text-lightDashboardWidgetComponentIconColorBlue",
             title: "Total Wifi Routers",
-            count: 678,
+            statusCounter:statusCounter("wifi router")
         },
         {
             icon: HiServerStack,
             bgColor: "bg-lightDashboardWidgetComponentIconBgColorYellow dark:bg-darkDashboardWidgetComponentIconBgColorYellow",
             iconColor: "text-lightDashboardWidgetComponentIconColorYellow",
             title: "Total Servers",
-            count: 678,
+            statusCounter:statusCounter("server")
         },
         {
             icon: HiSwitchHorizontal,
             bgColor: "bg-lightDashboardWidgetComponentIconBgColorOrange dark:bg-darkDashboardWidgetComponentIconBgColorOrange",
             iconColor: "text-lightDashboardWidgetComponentIconColorOrange",
             title: "Total Switches",
-            count: 678,
+            statusCounter:statusCounter("switch")
         },
         {
             icon: PiPlusCircleFill,
             bgColor: "bg-lightDashboardWidgetComponentIconBgColorPurple dark:bg-darkDashboardWidgetComponentIconBgColorPurple",
             iconColor: "text-lightDashboardWidgetComponentIconColorPurple",
             title: "Others",
-            count: 678,
+            statusCounter:statusCounter("other")
         },
     ];
 

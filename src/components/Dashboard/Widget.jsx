@@ -1,6 +1,7 @@
 import { FaSquare } from "react-icons/fa";
 
-export default function DashboardWidget({ icon: Icon, bgColor, iconColor, count, title }) {
+export default function DashboardWidget({ icon: Icon, bgColor, iconColor, title,statusCounter }) {
+    const {count,workingCount} = statusCounter;
     return (
         <div className="widget-container">
             <div className="w-full h-18 flex items-center justify-between">
@@ -12,8 +13,8 @@ export default function DashboardWidget({ icon: Icon, bgColor, iconColor, count,
                 <div className="flex justify-between">
                     <div className="text-2xl font-bold text-lightDashboardWidgetComponentCountTextColor dark:text-darkWidgetText">{count}</div>
                     <div className="flex items-center font-semibold">
-                        <FaSquare className="mr-1 text-DashboardWidgetComponentWorkingCountIndicator" /> {count}
-                        <FaSquare className="ml-2 mr-1 text-DashboardWidgetComponentNotWorkingCountIndicator" /> 0
+                        <FaSquare className="mr-1 text-DashboardWidgetComponentWorkingCountIndicator" /> {workingCount}
+                        <FaSquare className="ml-2 mr-1 text-DashboardWidgetComponentNotWorkingCountIndicator" /> {count-workingCount}
                     </div>
                 </div>
                 <div className="text-lightDashboardWidgetComponentDescTextColor dark:text-darkWidgetText">{title}</div>

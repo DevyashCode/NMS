@@ -150,7 +150,7 @@ body {
 
 /* Dashboard */
 .dashboard-container{
-    @apply flex flex-col h-full w-full items-center pl-10 pr-8 gap-3 overflow-auto; 
+    @apply flex flex-col h-full w-full items-center px-3.5 lg:pl-10 lg:pr-8 gap-3 overflow-auto; 
 }
 
 .widget-container{
