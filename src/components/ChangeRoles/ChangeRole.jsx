@@ -10,7 +10,7 @@ export default function ChangeRole() {
                 <Header headerName="Change Role" />
 
                 {/* List */}
-                <div className="w-full mt-5 flex flex-col bg-lightComponentBackground rounded-2xl shadow-md py-8 dark:bg-darkComponentBackground">
+                <div className="w-full mt-5 flex flex-col bg-lightComponentBackground rounded-2xl shadow-md py-8 dark:bg-darkComponentBackground overflow-auto">
                     <UserTable />
                 </div>
             </div>
