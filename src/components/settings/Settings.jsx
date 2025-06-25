@@ -3,7 +3,7 @@ import Header from "../SectionHeader/Header.jsx"
 export default function Settings() {
     return (
         <>
-            <div className="flex flex-col h-full w-full items-center pl-10 pr-8">
+            <div className="page-container">
                 
                 {/* Header */}
                 <Header headerName="Settings"/>

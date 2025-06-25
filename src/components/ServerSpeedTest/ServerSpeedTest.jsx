@@ -4,7 +4,7 @@ import ServerSpeedResult from "./ServerSpeedResult";
 export default function ServerSpeedTest() {
     return (
         <>
-            <div className="flex flex-col h-full w-full items-center px-3 lg:pl-10 lg:pr-8 overflow-auto">
+            <div className="page-container">
 
                 {/* Header */}
                 <Header headerName="Server Speed Test" />
@@ -19,7 +19,7 @@ export default function ServerSpeedTest() {
                 </div>
 
                 {/* Server Speed Test Container */}
-                <div className="w-full mt-6 rounded-xl shadow-md justify-around px-2 lg:px-6 py-8 flex bg-lightComponentBackground dark:bg-darkComponentBackground items-center flex-wrap">
+                <div className="w-full mt-1 lg:mt-6 mb-12 rounded-xl shadow-md justify-around px-2 lg:px-6 py-8 flex bg-lightComponentBackground dark:bg-darkComponentBackground items-center flex-wrap">
                     <div className="min-w-72">
                         <div className="h-5 flex gap-3 items-center text-[#42404C] dark:text-lightInputElementTextColor">
                             <div className="h-full w-5 bg-[#468EE5] rounded-sm"></div> 

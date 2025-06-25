@@ -8,7 +8,7 @@ export default function AddNetwork() {
     const [ip,setIp] = useState("");
     return (
         <>
-            <div className="flex flex-col h-full w-full items-center px-3.5 lg:pl-10 lg:pr-8">
+            <div className="page-container">
 
                 {/* Header */}
                 <Header headerName="Add Network" />

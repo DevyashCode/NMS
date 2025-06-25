@@ -148,16 +148,22 @@ body {
     @apply hidden;
 }
 
-/* Dashboard */
-.dashboard-container{
+/* Page properties */
+.page-container{
     @apply flex flex-col h-full w-full items-center px-3.5 lg:pl-10 lg:pr-8 gap-3 overflow-auto; 
 }
+
+/* Dashboard */
 
 .widget-container{
     @apply h-40 min-w-[250px] rounded-xl bg-lightComponentBackground dark:bg-darkComponentBackground shadow-md px-4 pt-3.5 flex-grow;
 }
 
 /* Dashboard Table */
+.table-container{
+    @apply mt-4 lg:mt-8 flex-grow overflow-auto;
+}
+
 .table {
     @apply flex flex-col w-full;
 }
@@ -194,7 +200,7 @@ body {
 
 /* Port Widget */
 .pw-container{
-    @apply w-full h-[75%] mt-8 flex flex-wrap gap-4 overflow-auto;
+    @apply w-full h-[75%] mt-2 lg:mt-8 flex flex-wrap gap-4 overflow-auto mb-12;
 }
 
 .pw-data-container{
@@ -207,5 +213,5 @@ body {
 
 /* Profile */
 .profileContainer{
-    @apply w-full mt-5 h-[85%] flex flex-wrap bg-lightComponentBackground rounded-2xl shadow-md px-9 pt-16 md:pt-6 dark:bg-darkComponentBackground overflow-auto gap-10;
+    @apply w-full lg:mt-5 h-[85%] flex flex-wrap bg-lightComponentBackground rounded-2xl shadow-md px-4 lg:px-9 pt-16 md:pt-6 dark:bg-darkComponentBackground overflow-auto gap-10;
 }

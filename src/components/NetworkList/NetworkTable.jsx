@@ -106,15 +106,15 @@ export default function NetworkTable() {
     return (
         <>
             {/* Search Bar */}
-            <div className="grid w-full items-center px-8">
+            <div className="flex flex-wrap justify-between gap-2">
                 <Filters
                     globalFilter={globalFilter}
                     setGlobalFilter={setGlobalFilter}
                 />
             </div>
 
-            <div className="mt-8 rounded-xl overflow-auto">
-                <div className="flex flex-col flex-grow">
+            <div className="table-container scrollbar-hide">
+                <div className="flex flex-col flex-grow min-w-[1100px]">
                     {
                         table.getHeaderGroups().map(headerGroup => <div className="nltr" key={headerGroup.id}>
                             {

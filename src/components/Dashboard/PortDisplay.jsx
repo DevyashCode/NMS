@@ -79,7 +79,7 @@ export default function PortDisplay({ ip, handlePopupClose }) {
                         <CgCloseO className="text-xl" onClick={() => { handlePopupClose() }} />
                     </div>
 
-                    <div className="mt-4 rounded-xl">
+                    <div className="mt-4">
                         <div className="flex flex-col flex-grow">
                             {
                                 table.getHeaderGroups().map(headerGroup => <div className="header-row" key={headerGroup.id}>

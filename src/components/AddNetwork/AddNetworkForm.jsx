@@ -19,7 +19,7 @@ export default function AddNetworkForm({ ip }) {
         { inptLabel: "Description", placeholder: "Enter Description", name: "description", val: existingNetwork && existingNetwork.description },
     ];
     return (
-        <div className="w-full mt-5 flex flex-col bg-lightComponentBackground rounded-2xl shadow-md px-9 py-4 dark:bg-darkComponentBackground">
+        <div className="w-full lg:mt-5 mb-12 flex flex-col bg-lightComponentBackground rounded-2xl shadow-md px-9 py-4 dark:bg-darkComponentBackground">
             {/* Header */}
             <div className="h-12 flex items-center">
                 <h1 className="text-lg text-lightHeaderText">Network Registration</h1>

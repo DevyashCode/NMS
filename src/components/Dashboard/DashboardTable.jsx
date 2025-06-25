@@ -102,7 +102,7 @@ export default function DashboardTable() {
         setShowPopup(true);
     };
 
-    const handlePopupClose=()=>{
+    const handlePopupClose = () => {
         setIp("");
         setShowPopup(false);
     }
@@ -139,10 +139,10 @@ export default function DashboardTable() {
     return (
         <>
             {/* IP Ping and Data Search Bar */}
-            <div className="flex flex-wrap mt-3 justify-between gap-3">
-                <div className="flex h-9 w-100 max-w-180 gap-3 items-center justify-between text-lightInputElementTextColor ">
-                    <input type="text" placeholder="Ping Live IP Address" className="rounded-md h-full outline-none flex-grow bg-lightInputElementBgColor dark:bg-darkInputElementBgColor px-3" />
-                    <button className="h-10 w-18 bg-lightButton rounded-md text-white max-h-[34px]">PING</button>
+            <div className="flex flex-wrap justify-between gap-2">
+                <div className="flex h-9 min-w-50 flex-grow max-w-80 gap-3 items-center justify-between text-lightInputElementTextColor ">
+                    <input type="text" placeholder="Ping Live IP Address" className="rounded-lg h-full outline-none min-w-40 flex-grow bg-lightInputElementBgColor dark:bg-darkInputElementBgColor px-3" />
+                    <button className="h-10 w-18 bg-lightButton rounded-lg text-white max-h-[34px]">PING</button>
                 </div>
 
                 {/* kjdsfhkjsh */}
@@ -152,8 +152,8 @@ export default function DashboardTable() {
                 />
             </div>
 
-            <div className="mt-8 rounded-xl overflow-auto">
-                <div className="flex flex-col flex-grow overflow-auto">
+            <div className="table-container scrollbar-hide">
+                <div className="flex flex-col flex-grow min-w-[1058px]">
                     {
                         table.getHeaderGroups().map(headerGroup => <div className="header-row" key={headerGroup.id}>
                             {
@@ -189,7 +189,7 @@ export default function DashboardTable() {
                     }
                 </div>
             </div>
-            <div className="flex w-full mt-2 px-2 justify-end">
+            <div className="flex w-full mt-3 px-1 justify-end">
                 <div className="flex">
                     <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} className="h-10 w-10 bg-lightButton mr-2 rounded-md text-white max-h-[34px]">{"<"}</button>
                     <p className="text-lg text-lightHeaderText mr-2">

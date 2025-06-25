@@ -4,13 +4,13 @@ import NetworkTable from "./NetworkTable";
 export default function NetworkList() {
     return (
         <>
-            <div className="flex flex-col h-full w-full items-center pl-8 pr-8 overflow-auto">
+            <div className="page-container scrollbar-hide">
                 
                 {/* Header */}
                 <Header headerName="Network List"/>
 
                 {/* List */}
-                <div className="w-full mt-5 flex flex-col bg-lightComponentBackground rounded-2xl shadow-md py-8 dark:bg-darkComponentBackground">
+                <div className="w-full mb-12 mt-1 lg:mt-5 flex flex-col bg-lightComponentBackground rounded-2xl px-5 shadow-md py-8 dark:bg-darkComponentBackground">
                     <NetworkTable/>
                 </div>
             </div>

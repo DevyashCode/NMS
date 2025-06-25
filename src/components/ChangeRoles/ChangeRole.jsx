@@ -4,13 +4,13 @@ import UserTable from "./userTable";
 export default function ChangeRole() {
     return (
         <>
-            <div className="flex flex-col h-full w-full items-center pl-10 pr-8">
+            <div className="page-container">
 
                 {/* Header */}
                 <Header headerName="Change Role" />
 
                 {/* List */}
-                <div className="w-full mt-5 flex flex-col bg-lightComponentBackground rounded-2xl shadow-md py-8 dark:bg-darkComponentBackground overflow-auto">
+                <div className="w-full lg:mt-5 mb-12 flex flex-col bg-lightComponentBackground rounded-2xl shadow-md py-8 dark:bg-darkComponentBackground overflow-auto">
                     <UserTable />
                 </div>
             </div>

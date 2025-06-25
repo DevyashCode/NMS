@@ -68,7 +68,7 @@ export default function UserTable() {
     const data = useSelector(userSelector);
     const [globalFilter, setGlobalFilter] = useState('')
     const [pagination, setPagination] = useState({
-        pageSize: 6,
+        pageSize: 5,
         pageIndex: 0
     });
     const table = useReactTable({
@@ -90,18 +90,15 @@ export default function UserTable() {
     return (
         <>
             {/* Search Bar */}
-            <div className="grid grid-cols-2 w-full items-center px-8">
-                <div className="h-12 flex items-center">
-                    <h1 className="text-lg text-lightHeaderText">Network Available</h1>
-                </div>
+            <div className="flex px-5 lg:px-8">
                 <Filters
                     globalFilter={globalFilter}
                     setGlobalFilter={setGlobalFilter}
                 />
             </div>
 
-            <div className="mt-8 rounded-xl">
-                <div className="flex flex-col" style={{ width: table.getTotalSize() }}>
+            <div className="table-container scrollbar-hide">
+                <div className="flex flex-col min-w-[1100px]" >
                     {
                         table.getHeaderGroups().map(headerGroup => <div className="nltr" key={headerGroup.id}>
                             {
@@ -137,7 +134,7 @@ export default function UserTable() {
                     }
                 </div>
             </div>
-            <div className="flex w-full mt-2 px-2 justify-end">
+            <div className="flex w-full mt-4 px-2 justify-end">
                 <div className="flex">
                     <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} className="h-10 w-10 bg-lightButton mr-2 rounded-md text-white max-h-[34px]">{"<"}</button>
                     <p className="text-lg text-lightHeaderText mr-2">
