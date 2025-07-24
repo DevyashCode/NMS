@@ -25,7 +25,7 @@ const features = [
 
 function Features(props) {
     return (
-        <div className='w-full h-[80%] bg-black'>
+        <div className='w-full h-full bg-black'>
             <GridBackground>
                 <div className='h-full w-full z-20 text-center flex flex-col items-center'>
                     <motion.div

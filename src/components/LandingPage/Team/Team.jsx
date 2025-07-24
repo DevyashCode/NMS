@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Devyash from "./Images/Devyash.jpg";
 import Utkarsh from "./Images/Utkarsh.jpg";
 import Ansh from "./Images/Ansh.jpg";
+import Suyash from "./Images/Suyash.jpg"
 
 const team = [
     {
@@ -29,7 +30,7 @@ const team = [
         name: "Suyash Sharma",
         designation: "Software Developer",
         linkedin: "",
-        image: ""
+        image: Suyash
     },
 ]
 

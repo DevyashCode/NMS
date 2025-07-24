@@ -8,12 +8,24 @@ import Footer from "./Footer/Footer";
 export default function Main() {
     return (
         <div className="h-full w-full bg-black">
-            <Hero/>
-            <AboutUs/>
-            <AffiliatedWith/>
-            <Team/>
-            <Features/>
-            <Footer/>
+            <section id="home" className="h-full w-full">
+                <Hero />
+            </section>
+            <section id="about">
+                <AboutUs />
+            </section>
+            <section id="affiliation" className="h-full w-full">
+                <AffiliatedWith />
+            </section>
+            <section id="team" className="h-full w-full">
+                <Team />
+            </section>
+            <section id="features" className="w-full h-[80%]">
+                <Features />
+            </section>
+            <section id="contact" className="w-full h-[50%]">
+                <Footer />
+            </section>
         </div>
     );
 }

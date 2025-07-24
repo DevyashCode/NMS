@@ -53,7 +53,7 @@ const data = [
 ]
 function Footer(props) {
     return (
-        <div className="w-full h-[50%] border-t-1 border-white/50 bg-black px-20">
+        <div className="w-full h-full border-t-1 border-white/30 bg-black/95 px-20">
             <div className="h-[85%] w-full flex">
                 {data.map((element, index) => {
                     return (
@@ -68,7 +68,7 @@ function Footer(props) {
                     )
                 })}
             </div>
-            <div className="h-[15%] w-full border-t-1 border-white/50 flex items-center justify-center">
+            <div className="h-[15%] w-full border-t-1 border-white/30 flex items-center justify-center">
                 <h3 className="text-white/80 text-center">© 2025 NMS MITS : Software Development Club</h3>
             </div>
         </div>
