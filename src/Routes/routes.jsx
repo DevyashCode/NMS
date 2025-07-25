@@ -9,14 +9,11 @@ import ChangeRole from "../components/ChangeRoles/ChangeRole.jsx";
 import History from "../components/History/History.jsx";
 import Settings from "../components/settings/Settings.jsx";
 import UserProfile from "../components/Profile/Profile.jsx";
-import LandingNav from "../components/LandingPage/LandingNav.jsx";
-import Main from "../components/LandingPage/Main.jsx";
+import LandingPage from "../components/LandingPage/LandingPage.jsx";
 
 const routes = createBrowserRouter([
     {
-        path:"/", element: <LandingNav/> , children : [
-            {index:true ,element: <Main/>}
-        ] 
+        path:"/", element: <LandingPage/> , children : [] 
     },
     {
         path: "/user", element: <Navbar />, children: [

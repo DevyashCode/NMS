@@ -25,20 +25,30 @@ const features = [
 
 function Features(props) {
     return (
-        <div className='w-full h-full bg-black'>
+        <div className='w-full min-h-screen bg-black py-8 sm:py-12 lg:py-16'>
             <GridBackground>
-                <div className='h-full w-full z-20 text-center flex flex-col items-center'>
+                <div className='h-full w-full z-20 text-center flex flex-col items-center px-4 sm:px-6 lg:px-8'>
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         transition={{ duration: 1.2, ease: "easeOut" }}
                         viewport={{ once: true, amount: 0.3 }}
+                        className="mb-8 sm:mb-12 lg:mb-16"
                     >
-                        <ShinyText text="Features" disabled={false} speed={6} className='text-5xl font-base' />
-                        <h4 className="text-white/40 text-xl mt-2">Features provided by NMS are</h4>
+                        <ShinyText 
+                            text="Features" 
+                            disabled={false} 
+                            speed={6} 
+                            className='text-3xl sm:text-4xl lg:text-5xl font-base' 
+                        />
+                        <h4 className="text-white/40 text-base sm:text-lg lg:text-xl mt-2">
+                            Features provided by NMS are
+                        </h4>
                     </motion.div>
-                    <div className="h-[50%] w-[80%] mt-10 rounded-xl flex justify-around">
-                        {features.map((element,index)=>{
+                    
+                    {/* Desktop and Tablet Layout */}
+                    <div className="hidden md:flex w-full max-w-7xl justify-center gap-6 lg:gap-8">
+                        {features.map((element, index) => {
                             return (
                                 <motion.div
                                     key={index}
@@ -56,13 +66,55 @@ function Features(props) {
                                         delay: index * 0.2
                                     }}
                                     viewport={{ once: true, amount: 0.3 }}
-                                    className="h-full w-[30%] rounded-2xl py-10 text-left"
+                                    className="flex-1 max-w-sm rounded-2xl py-6 lg:py-10 text-left"
                                 >
-                                    <div className="h-[25%] w-[40%] rounded-2xl">
+                                    <div className="h-12 w-12 lg:h-16 lg:w-16 rounded-2xl mb-4">
                                         {element.icon}
                                     </div>
-                                    <h2 className="text-white text-2xl mt-2 px-10">{element.heading}</h2>
-                                    <p className="text-white/60 text-sm mt-2 px-10">{element.content}</p>
+                                    <h2 className="text-white text-lg lg:text-2xl mb-3 px-2 lg:px-4">
+                                        {element.heading}
+                                    </h2>
+                                    <p className="text-white/60 text-xs lg:text-sm leading-relaxed px-2 lg:px-4">
+                                        {element.content}
+                                    </p>
+                                </motion.div>
+                            )
+                        })}
+                    </div>
+
+                    {/* Mobile Layout */}
+                    <div className="md:hidden w-full max-w-md space-y-6">
+                        {features.map((element, index) => {
+                            return (
+                                <motion.div
+                                    key={index}
+                                    initial={{ 
+                                        opacity: 0, 
+                                        y: 50
+                                    }}
+                                    whileInView={{ 
+                                        opacity: 1, 
+                                        y: 0 
+                                    }}
+                                    transition={{ 
+                                        duration: 0.6, 
+                                        ease: "easeOut",
+                                        delay: index * 0.15
+                                    }}
+                                    viewport={{ once: true, amount: 0.3 }}
+                                    className="w-full bg-white/5 backdrop-blur-sm rounded-2xl p-6 text-left border border-white/10"
+                                >
+                                    <div className="h-10 w-10 rounded-xl mb-4 flex items-center justify-center bg-violet-600/10">
+                                        <div className="h-6 w-6">
+                                            {element.icon}
+                                        </div>
+                                    </div>
+                                    <h2 className="text-white text-lg font-semibold mb-3">
+                                        {element.heading}
+                                    </h2>
+                                    <p className="text-white/70 text-sm leading-relaxed">
+                                        {element.content}
+                                    </p>
                                 </motion.div>
                             )
                         })}

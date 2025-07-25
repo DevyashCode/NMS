@@ -3,12 +3,14 @@ import React, { useRef, useMemo } from "react";
 import { useScroll, useTransform, motion } from "motion/react";
 import { BackgroundGradient } from "./background-gradient";
 
+
 export const ContainerScroll = ({
   titleComponent,
   footerComponent,
   children
 }) => {
   const containerRef = useRef(null);
+
 
   // Optimize scroll configuration
   const { scrollYProgress: mainScroll } = useScroll({
@@ -17,7 +19,9 @@ export const ContainerScroll = ({
     layoutEffect: false
   });
 
+
   const [isMobile, setIsMobile] = React.useState(false);
+
 
   React.useEffect(() => {
     const checkMobile = () => {
@@ -38,9 +42,11 @@ export const ContainerScroll = ({
     };
   }, []);
 
+
   const scaleDimensions = useMemo(() => {
     return isMobile ? [0.7, 0.9] : [1.05, 1];
   }, [isMobile]);
+
 
   // Card animations
   const rotate = useTransform(mainScroll, [0, 0.6], [20, 0]);
@@ -57,6 +63,7 @@ export const ContainerScroll = ({
   // Footer text animations
   const footerOpacity = useTransform(mainScroll, [0.6, 0.9], [0, 1]);
   const footerY = useTransform(mainScroll, [0.6, 0.9], [30, 0]);
+
 
   return (
     <div
@@ -92,6 +99,7 @@ export const ContainerScroll = ({
   );
 };
 
+
 export const Header = React.memo(({ opacity, translateY, titleComponent }) => {
   return (
     <motion.div
@@ -99,13 +107,14 @@ export const Header = React.memo(({ opacity, translateY, titleComponent }) => {
         opacity,
         translateY,
       }}
-      className="max-w-5xl mx-auto text-center mb-8"
+      className="max-w-5xl mx-auto text-center"
       initial={false}
     >
       {titleComponent}
     </motion.div>
   );
 });
+
 
 export const Footer = React.memo(({ opacity, translateY, footerComponent }) => {
   return (
@@ -114,7 +123,7 @@ export const Footer = React.memo(({ opacity, translateY, footerComponent }) => {
         opacity,
         translateY,
       }}
-      className="max-w-5xl mx-auto text-center mt-8"
+      className="max-w-5xl mx-auto text-center"
       initial={false}
     >
       {footerComponent}
@@ -122,14 +131,16 @@ export const Footer = React.memo(({ opacity, translateY, footerComponent }) => {
   );
 });
 
+
 export const Card = React.memo(({ rotate, scale, contentOpacity, contentY, children }) => {
   const optimizedShadow = useMemo(() => 
     "0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 10px 20px -5px rgba(0, 0, 0, 0.1)"
   , []);
 
+
   return (
     <motion.div
-      className="max-w-5xl mx-auto h-[30rem] md:h-[44rem] w-full border-4 border-[#6C6C6C] p-2 md:p-6 bg-[#222222] rounded-[30px] shadow-2xl"
+      className="max-w-5xl mx-auto h-[16.5rem] sm:h-[27rem] md:h-[33rem] lg:h-[40rem] w-full border-4 border-[#6C6C6C] p-2 md:p-6 bg-[#222222] rounded-[30px] shadow-2xl"
       initial={false}
       style={{
         rotateX: rotate,
@@ -139,7 +150,7 @@ export const Card = React.memo(({ rotate, scale, contentOpacity, contentY, child
         willChange: 'transform',
       }}
     >
-      <BackgroundGradient className="rounded-[22px] w-full h-fit bg-zinc-900">
+      <BackgroundGradient containerClassName="w-full h-full" className="rounded-[22px] w-full h-full bg-zinc-900 overflow-hidden">
         <motion.div 
           className="overflow-hidden rounded-2xl bg-zinc-900 md:rounded-2xl md:p-4"
           style={{
@@ -153,6 +164,7 @@ export const Card = React.memo(({ rotate, scale, contentOpacity, contentY, child
     </motion.div>
   );
 });
+
 
 // Set display names for debugging
 Header.displayName = 'Header';
