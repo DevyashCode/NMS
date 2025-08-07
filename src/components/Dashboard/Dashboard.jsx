@@ -44,11 +44,11 @@ function Dashboard() {
             statusCounter: statusCounter("other"),
         },
     ];
-    
-    const [columnFilter, setColumnFilter] = useState("");
+
+    const [columnFilters, setColumnFilters] = useState([]);
     const handleClick = (type) => {
-        setColumnFilter(type)
-    }
+        setColumnFilters([{ id: "type", value: type }]);
+    };
 
     return (
         <>
@@ -69,7 +69,8 @@ function Dashboard() {
                     </div>
 
                     <div className="w-full rounded-xl">
-                        <DashboardTable columnFilter={columnFilter} setColumnFilter={setColumnFilter}  />
+                        {/* <DashboardTable columnFilter={columnFilter} setColumnFilter={setColumnFilter} /> */}
+                        <DashboardTable columnFilters={columnFilters} setColumnFilters={setColumnFilters} />
                     </div>
 
                 </div>

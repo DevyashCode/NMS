@@ -20,6 +20,8 @@ import { FaSort, FaSortAlphaDownAlt, FaSortAlphaUp } from "react-icons/fa";
 import Filters from "./Filters";
 import PopupContainer from "../Popups/PopupContainer";
 import PortDisplay from "./PortDisplay";
+import { IoReload } from "react-icons/io5";
+
 
 // CSS variables for light and dark shimmer colors
 const skeletonCSS = `
@@ -97,7 +99,7 @@ function SkeletonRow({ columns, rowKey }) {
   );
 }
 
-export default function DashboardTable({columnFilter,setColumnFilter}) {
+export default function DashboardTable({ columnFilters, setColumnFilters }) {
   const columns = [
     {
       accessorKey: "status",
@@ -212,9 +214,9 @@ export default function DashboardTable({columnFilter,setColumnFilter}) {
   const table = useReactTable({
     data,
     columns,
-    state: { globalFilter, columnFilter, pagination },
+    state: { globalFilter, columnFilters, pagination },
     onGlobalFilterChange: setGlobalFilter,
-    onColumnFiltersChange: setColumnFilter,
+    onColumnFiltersChange: setColumnFilters,
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -240,7 +242,10 @@ export default function DashboardTable({columnFilter,setColumnFilter}) {
             PING
           </button>
         </div>
-        <Filters globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
+        <div className="flex gap-2">
+          <Filters globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
+          <div className="h-9 w-9 rounded-[50px] flex justify-center items-center bg-lightInputElementBgColor dark:bg-darkInputElementBgColor text-lightInputElementTextColor" onClick={()=>{setColumnFilters([]);setGlobalFilter("")}} ><IoReload className="text-xl font-bold" /></div>
+        </div>
       </div>
 
       <div className="table-container scrollbar-hide">
@@ -332,7 +337,7 @@ export default function DashboardTable({columnFilter,setColumnFilter}) {
 
       {showPopup &&
         <PopupContainer handlePopupClose={handlePopupClose} className={"h-[62%] lg:h-[55%] w-[90%] lg:w-[55%]"}>
-          <PortDisplay ip={ip} handlePopupClose={handlePopupClose}/>
+          <PortDisplay ip={ip} handlePopupClose={handlePopupClose} />
         </PopupContainer>
       }
     </>
