@@ -111,7 +111,7 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
             (props.getValue() === "on"
               ? "bg-lightStatusBgOn dark:bg-darkStatusBgOn text-lightStatusTextOn"
               : "bg-lightStatusBgOf dark:bg-darkStatusBgOf text-lightStatusTextOf dark:text-darkStatusTextOf") +
-            " flex items-center justify-center w-14 h-7 rounded-full"
+            " flex items-center justify-center w-14 2xl:w-16 h-7 2xl:h-8 rounded-full"
           }
         >
           <VscCircleFilled className="mr-1" />
@@ -177,7 +177,7 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
         return (
           <button
             onClick={() => handlePortClick(rowIp)}
-            className="h-7 w-15 bg-lightButton text-xs rounded-full text-white max-h-[34px] font-semibold flex justify-center items-center"
+            className="h-7 w-15 2xl:w-17 2xl:h-9 bg-lightButton text-xs 2xl:text-sm rounded-full text-white max-h-[34px] font-semibold flex justify-center items-center"
           >
             <BsUsbSymbol className="mr-0.5" />
             Port
@@ -231,20 +231,20 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
       <style>{skeletonCSS}</style>
 
       {/* Header and search */}
-      <div className="flex flex-wrap justify-between gap-2 mb-2">
-        <div className="flex h-9 min-w-[12.5rem] flex-grow max-w-[20rem] gap-3 items-center justify-between text-lightInputElementTextColor">
+      <div className="flex flex-wrap justify-between gap-2 mb-2 2xl:mt-4">
+        <div className="flex h-9 min-w-[12.5rem] max-w-[20rem] 2xl:max-w-[28rem] 2xl:h-11 flex-grow gap-3 items-center  justify-between text-lightInputElementTextColor">
           <input
             type="text"
             placeholder="Ping Live IP Address"
             className="rounded-lg h-full outline-none min-w-[10rem] flex-grow bg-lightInputElementBgColor dark:bg-darkInputElementBgColor px-3"
           />
-          <button className="h-10 w-[4.5rem] bg-lightButton rounded-lg text-white max-h-[34px]">
+          <button className="h-10 2xl:h-11 2xl:max-h-11 2xl:w-[6rem] 2xl:text-xl w-[4.5rem] bg-lightButton rounded-lg text-white max-h-[34px]">
             PING
           </button>
         </div>
         <div className="flex gap-2">
           <Filters globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
-          <div className="h-9 w-9 rounded-[50px] flex justify-center items-center bg-lightInputElementBgColor dark:bg-darkInputElementBgColor text-lightInputElementTextColor" onClick={()=>{setColumnFilters([]);setGlobalFilter("")}} ><IoReload className="text-xl font-bold" /></div>
+          <div className="h-9 w-9 2xl:h-11 2xl:w-11 rounded-[50px] flex justify-center items-center bg-lightInputElementBgColor dark:bg-darkInputElementBgColor text-lightInputElementTextColor" onClick={()=>{setColumnFilters([]);setGlobalFilter("")}} ><IoReload className="text-xl font-bold" /></div>
         </div>
       </div>
 

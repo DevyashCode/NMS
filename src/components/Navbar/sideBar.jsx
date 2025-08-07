@@ -63,9 +63,8 @@ export default function SideBar() {
 
       {!isHidden && (
         <div
-          className={`z-50 h-full bg-lightComponentBackground dark:bg-darkComponentBackground flex flex-col rounded-r-2xl font-poppins shadow-md ${
-            isOpen ? "w-[280px]" : "min-w-[80px] w-[80px]"
-          }`}
+          className={`z-50 h-full bg-lightComponentBackground dark:bg-darkComponentBackground flex flex-col rounded-r-2xl font-poppins shadow-md ${isOpen ? "w-[280px] 2xl:w-[450px]" : "min-w-[80px] w-[80px] 2xl:w-[150px]"
+            }`}
         >
           {/* Header */}
           <div className={`nav-header ${isOpen ? "" : "nav-justify-center"}`}>
@@ -74,14 +73,13 @@ export default function SideBar() {
               alt="Mits Logo"
               className={`${isOpen ? "nav-logo" : "nav-justify-center nav-logo-closed"}`}
             />
-            <h2 className={`font-semibold text-[1.2rem] dark:text-white ${isOpen ? "" : "hidden"}`}>
+            <h2 className={`font-semibold text-[1.2rem] 2xl:text-2xl dark:text-white ${isOpen ? "" : "hidden"}`}>
               NMS MITS
             </h2>
             {!isMobile && (
               <div
-                className={`min-h-8 min-w-8 bg-lightComponentBackground dark:bg-darkComponentBackground border-2 border-lightBorderColor flex items-center justify-center rounded-full absolute ${
-                  isOpen ? "left-[260px]" : "left-[65px]"
-                }`}
+                className={`min-h-8 min-w-8 bg-lightComponentBackground dark:bg-darkComponentBackground border-2 border-lightBorderColor flex items-center justify-center rounded-full absolute ${isOpen ? "left-[260px] 2xl:left-[345px]" : "left-[65px] 2xl:left-[125px]"
+                  }`}
                 onClick={toggleSidebarCollapse}
               >
                 {isOpen ? (
@@ -101,11 +99,10 @@ export default function SideBar() {
                   key={i}
                   to={to}
                   onClick={toggleSidebarVisibility}
-                  className={`navItem ${!isOpen && "nav-justify-center nav-item-closed-width"} ${
-                    i !== 0 ? "mt-2" : ""
-                  }`}
+                  className={`navItem ${!isOpen && "nav-justify-center nav-item-closed-width"} ${i !== 0 ? "mt-2" : ""
+                    }`}
                 >
-                  <span className="text-lg">{icon}</span>
+                  <span className="text-lg 2xl:text-2xl">{icon}</span>
                   {isOpen && <span>{label}</span>}
                 </NavLink>
               ))}
@@ -117,11 +114,10 @@ export default function SideBar() {
                   key={i}
                   to={to}
                   onClick={toggleSidebarVisibility}
-                  className={`navItem ${!isOpen && "nav-justify-center nav-item-closed-width"} ${
-                    i !== 0 ? "mt-2" : ""
-                  }`}
+                  className={`navItem ${!isOpen && "nav-justify-center nav-item-closed-width"} ${i !== 0 ? "mt-2" : ""
+                    }`}
                 >
-                  <span className="text-lg">{icon}</span>
+                  <span className="text-lg 2xl:text-2xl">{icon}</span>
                   {isOpen && <span>{label}</span>}
                 </NavLink>
               ))}
@@ -131,19 +127,21 @@ export default function SideBar() {
           {/* Footer */}
           <div className="flex-grow"></div>
           <NavLink to="profile" onClick={toggleSidebarVisibility}>
-            <div className="flex w-full h-[5rem] items-center p-5">
+            <div className="flex w-full h-[5rem] 2xl:h-[8rem] items-center p-5">
               <img
                 src={userAvator}
                 alt="User Avatar"
-                className={isOpen ? "h-12 w-12 mr-3" : "h-10 w-10 mx-auto"}
+                className={isOpen ? "h-12 w-12 2xl:h-18 2xl:w-18 mr-3" : "h-10 w-10 2xl:h-16 2xl:w-16 mx-auto"}
               />
               {isOpen && (
-                <div className="h-13 w-50 flex flex-col justify-center dark:text-darkWelcomeText">
+                <div className="h-13 w-50 2xl:h-18 2xl:text-xl flex flex-col justify-center dark:text-darkWelcomeText">
                   <h3>Welcome Back</h3>
                   <h1>Admin</h1>
                 </div>
               )}
-              <IoIosArrowForward className="text-2xl dark:text-darkWelcomeText" />
+              {isOpen &&
+                <IoIosArrowForward className="text-2xl dark:text-darkWelcomeText" />
+              }
             </div>
           </NavLink>
         </div>
