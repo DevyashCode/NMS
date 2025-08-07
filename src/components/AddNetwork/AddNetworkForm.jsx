@@ -1,12 +1,13 @@
-import { NetworkListSelector, addNetwork } from "../../Redux/Reducers/NetworkListReducer";
+import { NetworkListSelector, addNetwork,NetworkScannedDataSelector } from "../../Redux/Reducers/NetworkListReducer";
 import { FormInput, FormSelect } from "../Form/formInput";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PopupContainer from "../Popups/PopupContainer";
 import SubmitConfirmation from "../Popups/SubmitConfirmation";
 
-export default function AddNetworkForm({ ip }) {
+export default function AddNetworkForm() {
     const dispatch = useDispatch();
+    const scannedData = useSelector(NetworkScannedDataSelector);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [showSubmitConfirmation, setShowSubmitConfirmation] = useState(false);
 
@@ -18,6 +19,13 @@ export default function AddNetworkForm({ ip }) {
     const [owner, setOwner] = useState("");
     const [description, setDescription] = useState("");
     const [type, setType] = useState("");
+
+    useEffect(()=>{
+        setMacAddress(scannedData.mac);
+        setIpAddress(scannedData.ip);
+        setHostname(scannedData.hostname);
+        setOS(scannedData.os);
+    },[scannedData])
 
     const handleSubmit = (e) => {
         e.preventDefault();

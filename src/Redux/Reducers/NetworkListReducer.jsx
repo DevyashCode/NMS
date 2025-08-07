@@ -9,6 +9,28 @@ export const fetchNetworkList = createAsyncThunk(
   }
 );
 
+export const scanIp = createAsyncThunk(
+  "NetworkList/searchIp",
+  async (ip, { rejectWithValue }) => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/Scan/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(ip),
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        return rejectWithValue(error);
+      }
+      const data = await response.json();
+      return data;
+    }
+    catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+)
+
 export const addNetwork = createAsyncThunk(
   "NetworkList/addNetwork",
   async (networkData, { rejectWithValue }) => {
@@ -24,7 +46,7 @@ export const addNetwork = createAsyncThunk(
       }
       const data = await response.json();
       return data;
-    } 
+    }
     catch (error) {
       return rejectWithValue(error.message);
     }
@@ -76,8 +98,9 @@ export const deleteNetwork = createAsyncThunk(
 
 const initialState = {
   data: [],
+  scannedData: "",
   loading: false,
-  addLoading:false,
+  addLoading: false,
   error: null,
 };
 
@@ -99,6 +122,18 @@ const NetworkListSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
+      .addCase(scanIp.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(scanIp.fulfilled, (state, action) => {
+        state.loading = false;
+        state.scannedData = action.payload;
+      })
+      .addCase(scanIp.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
       .addCase(addNetwork.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -111,7 +146,7 @@ const NetworkListSlice = createSlice({
       .addCase(addNetwork.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      })      
+      })
       .addCase(updateNetwork.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -145,5 +180,6 @@ const NetworkListSlice = createSlice({
 
 export const NetworkListReducer = NetworkListSlice.reducer;
 export const NetworkListSelector = (state) => state.NetworkList.data;
+export const NetworkScannedDataSelector = (state) => state.NetworkList.scannedData;
 export const NetworkListLoading = (state) => state.NetworkList.loading;
 export const NetworkListError = (state) => state.NetworkList.error;

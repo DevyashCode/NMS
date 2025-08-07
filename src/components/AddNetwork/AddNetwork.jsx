@@ -6,10 +6,6 @@ import { useState,useEffect } from "react";
 
 
 export default function AddNetwork() {
-    const [ip,setIp] = useState("");
-    useEffect(()=>{
-        axios.post
-    },[ip])
 
     return (
         <>
@@ -19,10 +15,10 @@ export default function AddNetwork() {
                 <Header headerName="Add Network" />
 
                 {/* IP search Bar */}
-                <SearchIpAddress setIp={setIp}/>
+                <SearchIpAddress/>
 
                 {/* Add Network Form */}
-                <AddNetworkForm ip={ip}/>
+                <AddNetworkForm />
             </div>
         </>
     )
