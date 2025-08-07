@@ -1,11 +1,16 @@
+import axios from "axios";
 import Header from "../SectionHeader/Header.jsx";
 import AddNetworkForm from "./AddNetworkForm";
 import SearchIpAddress from "./SearchIPAddress";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 
 export default function AddNetwork() {
     const [ip,setIp] = useState("");
+    useEffect(()=>{
+        axios.post
+    },[ip])
+
     return (
         <>
             <div className="page-container">

@@ -24,13 +24,6 @@ function AboutUs() {
                     </>
                 }
             >
-                {/* <img
-                    src={image}
-                    alt="hero"
-                    size="cover"
-                    className="mx-auto rounded-2xl object-cover h-full object-left-top"
-                    draggable={false}
-                /> */}
                 <img
                     src={image}
                     alt="hero"

@@ -1,13 +1,149 @@
-import { createSlice } from "@reduxjs/toolkit";
-import data from "../data";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const initialState = {data}
+export const fetchNetworkList = createAsyncThunk(
+  "NetworkList/fetchNetworkList",
+  async () => {
+    const response = await fetch('http://127.0.0.1:8000/Network/');
+    if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
+    return await response.json();
+  }
+);
+
+export const addNetwork = createAsyncThunk(
+  "NetworkList/addNetwork",
+  async (networkData, { rejectWithValue }) => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/Network/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(networkData),
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        return rejectWithValue(error);
+      }
+      const data = await response.json();
+      return data;
+    } 
+    catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+)
+
+export const updateNetwork = createAsyncThunk(
+  "NetworkList/updateNetwork",
+  async ({ mac, networkData }, thunkAPI) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/Network/${mac}/`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(networkData)
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update user');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+)
+
+export const deleteNetwork = createAsyncThunk(
+  "NetworkList/deleteNetwork",
+  async ({ mac }, thunkAPI) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/Network/${mac}/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete Network');
+      }
+      return mac;
+    }
+    catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+)
+
+const initialState = {
+  data: [],
+  loading: false,
+  addLoading:false,
+  error: null,
+};
 
 const NetworkListSlice = createSlice({
-    name:"NetworkList",
-    initialState,
-    reducers:{}
+  name: "NetworkList",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchNetworkList.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchNetworkList.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchNetworkList.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(addNetwork.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addNetwork.fulfilled, (state, action) => {
+        state.loading = false;
+        const addedNetwork = action.payload;
+        state.data.unshift(addedNetwork);
+      })
+      .addCase(addNetwork.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })      
+      .addCase(updateNetwork.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateNetwork.fulfilled, (state, action) => {
+        state.loading = false;
+        const updatedNetwork = action.payload;
+        const index = state.data.findIndex(network => network.mac_address === updatedNetwork.mac_address);
+        if (index !== -1) {
+          state.data[index] = updatedNetwork;
+        }
+      })
+      .addCase(updateNetwork.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteNetwork.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteNetwork.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = state.data.filter(item => item.mac_address !== action.payload);
+      })
+      .addCase(deleteNetwork.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+  },
 });
 
 export const NetworkListReducer = NetworkListSlice.reducer;
-export const NetworkListSelector = (state)=>state.NetworkList.data;
+export const NetworkListSelector = (state) => state.NetworkList.data;
+export const NetworkListLoading = (state) => state.NetworkList.loading;
+export const NetworkListError = (state) => state.NetworkList.error;

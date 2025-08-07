@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { MdOutlineLightMode } from "react-icons/md";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useDispatch } from "react-redux";
@@ -16,6 +17,12 @@ export default function Header({headerName}) {
     const toggleSV = ()=>{
         dispatch(svActions.svToggle(!isHidden));
     }
+
+    useEffect(()=>{
+        if(theme === 'dark'){
+            document.documentElement.classList.add("dark");
+        }
+    },[])
 
     return (
         <>

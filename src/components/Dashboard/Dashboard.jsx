@@ -6,6 +6,7 @@ import DashboardTable from "./DashboardTable.jsx";
 import Header from "../SectionHeader/Header.jsx";
 import DashboardWidget from "./Widget.jsx";
 import statusCounter from "./statusCounter.jsx";
+import { useState } from "react";
 
 
 function Dashboard() {
@@ -15,30 +16,39 @@ function Dashboard() {
             bgColor: "bg-lightDashboardWidgetComponentIconBgColorBlue dark:bg-darkDashboardWidgetComponentIconBgColorBlue",
             iconColor: "text-lightDashboardWidgetComponentIconColorBlue",
             title: "Total Wifi Routers",
-            statusCounter:statusCounter("wifi router")
+            value: "wifi router",
+            statusCounter: statusCounter("wifi router")
         },
         {
             icon: HiServerStack,
             bgColor: "bg-lightDashboardWidgetComponentIconBgColorYellow dark:bg-darkDashboardWidgetComponentIconBgColorYellow",
             iconColor: "text-lightDashboardWidgetComponentIconColorYellow",
             title: "Total Servers",
-            statusCounter:statusCounter("server")
+            value: "server",
+            statusCounter: statusCounter("server")
         },
         {
             icon: HiSwitchHorizontal,
             bgColor: "bg-lightDashboardWidgetComponentIconBgColorOrange dark:bg-darkDashboardWidgetComponentIconBgColorOrange",
             iconColor: "text-lightDashboardWidgetComponentIconColorOrange",
             title: "Total Switches",
-            statusCounter:statusCounter("switch")
+            value: "switch",
+            statusCounter: statusCounter("switch")
         },
         {
             icon: PiPlusCircleFill,
             bgColor: "bg-lightDashboardWidgetComponentIconBgColorPurple dark:bg-darkDashboardWidgetComponentIconBgColorPurple",
             iconColor: "text-lightDashboardWidgetComponentIconColorPurple",
             title: "Others",
-            statusCounter:statusCounter("other")
+            value: 'other',
+            statusCounter: statusCounter("other"),
         },
     ];
+    
+    const [columnFilter, setColumnFilter] = useState("");
+    const handleClick = (type) => {
+        setColumnFilter(type)
+    }
 
     return (
         <>
@@ -48,7 +58,7 @@ function Dashboard() {
                 {/* Widgets */}
                 <div className="w-full flex justify-between flex-wrap dark:text-darkWidgetText gap-3">
                     {widgets.map((widget, index) => (
-                        <DashboardWidget key={index} {...widget} />
+                        <DashboardWidget key={index} {...widget} handleClick={handleClick} />
                     ))}
                 </div>
 
@@ -59,7 +69,7 @@ function Dashboard() {
                     </div>
 
                     <div className="w-full rounded-xl">
-                        <DashboardTable />
+                        <DashboardTable columnFilter={columnFilter} setColumnFilter={setColumnFilter}  />
                     </div>
 
                 </div>

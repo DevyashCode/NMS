@@ -3,7 +3,7 @@ import Spotlight from "./spotlight-new";
 import { HoverBorderGradient } from "../ui/hover-border-gradient";
 import ShinyText from "./ShinyText";
 
-function  Hero() {
+function  Hero({handleLoginClick}) {
     return (
         <Particles
             particleColors={['#ffffff', '#ffffff']}
@@ -26,7 +26,7 @@ function  Hero() {
                         <ShinyText text="Streamline, Secure, Simplify: Your Network, Perfected." disabled={false} speed={3} className='text-xl font-semibold' />
                     </div>
                 </div>
-                <div className="mt-5 flex justify-center text-center">
+                <div className="mt-5 flex justify-center text-center" onClick={handleLoginClick}>
                     <HoverBorderGradient
                         containerClassName="rounded-full"
                         as="button"

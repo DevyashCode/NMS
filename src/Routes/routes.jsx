@@ -13,7 +13,7 @@ import LandingPage from "../components/LandingPage/LandingPage.jsx";
 
 const routes = createBrowserRouter([
     {
-        path:"/", element: <LandingPage/> , children : [] 
+        path:"", element: <LandingPage/> , children : [] 
     },
     {
         path: "/user", element: <Navbar />, children: [

@@ -177,11 +177,11 @@ body {
 }
 
 .th {
-    @apply h-full w-full flex bg-tableHeader flex-grow dark:bg-darkTableHeader justify-center items-center text-[clamp(0.75rem,1vw,0.875rem)] font-semibold text-lightTableHeaderCellText dark:text-darkTableHeaderCellText; 
+    @apply h-full w-full flex items-center justify-center bg-tableHeader flex-grow dark:bg-darkTableHeader text-[clamp(0.75rem,1vw,0.875rem)] font-semibold text-lightTableHeaderCellText dark:text-darkTableHeaderCellText; 
 }
 
 .td {
-    @apply h-full flex items-center justify-center text-center  text-[clamp(0.75rem,1vw,0.875rem)] flex-grow text-lightTableDataCellText dark:text-darkTableDataCellText;
+    @apply h-full w-full flex items-center justify-center text-center text-[clamp(0.75rem,1vw,0.875rem)] flex-grow text-lightTableDataCellText dark:text-darkTableDataCellText;
 }
 
 /* Network List */
