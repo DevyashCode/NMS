@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   NetworkLoadingScan,
   NetworkScannedDataSelector,
+  NetworkListSelector,
 } from "../../Redux/Reducers/NetworkListReducer";
 import PopupContainer from "../Popups/PopupContainer";
 import Lottie from "lottie-react";
@@ -14,7 +15,9 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
   const dispatch = useDispatch();
   const [ip, setIp] = useState("");
   const loading = useSelector(NetworkLoadingScan);
-  const scannedData = useSelector(NetworkScannedDataSelector);
+  const data = useSelector(NetworkListSelector);
+  const [networkAlreadyExists, setNetworkAlreadyExists] = useState(false);
+  const [scannedData, setScannedData] = useState(useSelector(NetworkScannedDataSelector));
   const [showPopup, setShowPopup] = useState(false);
 
   // Error toast states
@@ -62,7 +65,23 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
     }
 
     setShowPopup(true);
-    dispatch(scanIp({ ip }));
+    const existingIpDetails = data.find(network => network.ip_address === ip);
+    if (existingIpDetails) {
+      setScannedData({
+        mac: existingIpDetails.mac_address,
+        ip: existingIpDetails.ip_address,
+        hostname: existingIpDetails.hostname,
+        os: existingIpDetails.os,
+        location: existingIpDetails.location,
+        description: existingIpDetails.description,
+        type: existingIpDetails.type,
+      });
+      setNetworkAlreadyExists(true);
+    }
+    else {
+      dispatch(scanIp({ ip }));
+      setScannedData(useSelector(NetworkScannedDataSelector));
+    }
   };
 
   useEffect(() => {
@@ -155,34 +174,42 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
             <div className="h-full w-full flex flex-col gap-2">
               <div className="h-12 flex items-center text-lg text-lightHeaderText justify-between w-full">
                 <h1>IP : {ip}</h1>
+                <div className={(networkAlreadyExists ? "border-orange-400 text-orange-500 bg-orange-200/30 dark:bg-orange-200/10" : "border-green-500 text-green-500 bg-green-200/30 dark:bg-green-200/10") + " h-[60%] rounded-lg border-2 text-sm flex justify-center items-center px-3"}>
+                  {networkAlreadyExists ? "Network Already Exists" : "Scanning Successful"}
+                </div>
               </div>
 
-              <div className="h-[70%] w-full px-8 rounded-xl bg-lightInputElementBgColor text-gray-500 dark:bg-darkInputElementBgColor overflow-auto flex items-center">
+              <div className="h-[70%] w-full p-8 rounded-xl bg-lightInputElementBgColor text-gray-500 dark:bg-darkInputElementBgColor">
                 {scannedData ? (
-                  <pre
-                    style={{
-                      whiteSpace: "pre-wrap",
-                      wordBreak: "break-word",
-                    }}
-                  >
-                    {JSON.stringify(scannedData, null, 2)}
-                  </pre>
+                  <div className="h-full w-full overflow-auto scrollbar-hide">
+                    <pre
+                      style={{
+                        whiteSpace: "pre-wrap",
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      {JSON.stringify(scannedData, null, 2)}
+                    </pre>
+                  </div>
                 ) : (
-                  <div className="w-full flex justify-center">No data</div>
+                  <div className="w-full h-full flex items-center justify-center">No data found</div>
                 )}
               </div>
 
               <div className="mt-3 w-full flex justify-between">
                 <div></div>
                 <div className="flex gap-2">
-                  {scannedData ?
-                    <button className="h-8 w-25 bg-lightButton rounded-sm text-white max-h-[34px] flex justify-center items-center"
-                      onClick={() => { handleContinue() }}
-                    >
-                      Continue
-                    </button>
-                    : <></>
+                  {networkAlreadyExists ?
+                    <></> :
+                    scannedData ?
+                      <button className="h-8 w-25 bg-lightButton rounded-sm text-white max-h-[34px] flex justify-center items-center"
+                        onClick={() => { handleContinue() }}
+                      >
+                        Continue
+                      </button>
+                      : <></>
                   }
+
                   <button
                     className="h-8 w-20 bg-red-600 rounded-sm text-white max-h-[34px] flex justify-center items-center"
                     onClick={() => {
@@ -196,8 +223,9 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
               </div>
             </div>
           )}
-        </PopupContainer>
-      )}
+        </PopupContainer >
+      )
+      }
     </>
   );
 }
