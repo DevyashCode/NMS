@@ -91,10 +91,10 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
   }, []);
 
   const handleContinue = () => {
-    setMacAddress(scannedData.mac);
-    setIpAddress(scannedData.ip);
-    setHostname(scannedData.hostname);
-    setOS(scannedData.os);
+    setMacAddress(scannedData[0].mac);
+    setIpAddress(scannedData[0].ip);
+    setHostname(scannedData[0].hostname);
+    setOS(scannedData[0].os);
     setShowPopup(false);
     setIp("");
   }
