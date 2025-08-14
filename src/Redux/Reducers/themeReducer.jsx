@@ -9,7 +9,6 @@ const themeSlice = createSlice({
     reducers:{
         toggle:(state,action)=>{
             if(state!="dark"){
-                console.log(initialState);
                 document.documentElement.classList.add("dark");
                 localStorage.setItem("theme","dark")
                 return "dark"

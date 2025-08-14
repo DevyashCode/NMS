@@ -100,6 +100,7 @@ const initialState = {
   data: [],
   scannedData: "",
   loading: false,
+  loadingScan: false,
   addLoading: false,
   error: null,
 };
@@ -123,15 +124,15 @@ const NetworkListSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(scanIp.pending, (state) => {
-        state.loading = true;
+        state.loadingScan = true;
         state.error = null;
       })
       .addCase(scanIp.fulfilled, (state, action) => {
-        state.loading = false;
+        state.loadingScan = false;
         state.scannedData = action.payload;
       })
       .addCase(scanIp.rejected, (state, action) => {
-        state.loading = false;
+        state.loadingScan = false;
         state.error = action.error.message;
       })
       .addCase(addNetwork.pending, (state) => {
@@ -182,4 +183,5 @@ export const NetworkListReducer = NetworkListSlice.reducer;
 export const NetworkListSelector = (state) => state.NetworkList.data;
 export const NetworkScannedDataSelector = (state) => state.NetworkList.scannedData;
 export const NetworkListLoading = (state) => state.NetworkList.loading;
+export const NetworkLoadingScan = (state) => state.NetworkList.loadingScan;
 export const NetworkListError = (state) => state.NetworkList.error;

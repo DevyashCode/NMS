@@ -87,9 +87,9 @@ function EditUserForm({ email, handlePopupClose }) {
             <div className="h-full w-full p-4">
                 <form onSubmit={handleSubmit} className="flex flex-wrap gap-3">
                     {inputFields.map((element, index) =>
-                        <FormInput inptLabel={element.name} name={element.key} val={element.value} key={index} handleChange={element["method"]} disabled={element.disabled} />
+                        <FormInput inptLabel={element.name} name={element.key} val={element.value} key={index} handleChange={element["method"]} className={"w-[49%]"} disabled={element.disabled} />
                     )}
-                    <FormSelect inptLabel={"Role"} name="role" options={["Admin", "Technician", "User"]} val={role.toLowerCase()} handleChange={setRole} />
+                    <FormSelect inptLabel={"Role"} name="role" options={["Admin", "Technician", "User"]} val={role.toLowerCase()} className={"w-[49%]"} handleChange={setRole} />
                     <div className="flex gap-2 mt-4 text-white w-full">
                         <button type="submit" className="h-8 w-20 bg-lightButton rounded-sm max-h-[34px]">Submit</button>
                         <button type="reset" className="h-8 w-20 border-2 border-gray-400 text-gray-400 rounded-sm" onClick={() => { handleReset(userInfo) }}>Reset</button>

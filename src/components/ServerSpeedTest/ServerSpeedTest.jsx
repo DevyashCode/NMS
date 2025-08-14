@@ -4,7 +4,7 @@ import ServerSpeedResult from "./ServerSpeedResult";
 export default function ServerSpeedTest() {
     return (
         <>
-            <div className="page-container">
+            <div className="page-container scrollbar-hide">
 
                 {/* Header */}
                 <Header headerName="Server Speed Test" />

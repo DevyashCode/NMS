@@ -216,3 +216,7 @@ body {
     @apply w-full lg:mt-5 h-[85%] flex flex-wrap bg-lightComponentBackground rounded-2xl shadow-md px-4 lg:px-9 pt-16 md:pt-6 dark:bg-darkComponentBackground overflow-auto gap-10;
 }
 
+/* Landing Page */
+.landing-page{
+    @apply h-[100vh] w-[100vw] flex flex-col;
+}

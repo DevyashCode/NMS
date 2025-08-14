@@ -96,9 +96,9 @@ function EditNetworkForm({ mac, handlePopupClose }) {
             <div className="h-full w-full p-4">
                 <form onSubmit={handleSubmit} className="flex flex-wrap gap-3">
                     {inputFields.map((element, index) =>
-                        <FormInput inptLabel={element.name} name={element.key} val={element.value} key={index} handleChange={element["method"]} disabled={false} />
+                        <FormInput inptLabel={element.name} name={element.key} val={element.value} key={index} handleChange={element["method"]} className={"w-[49%]"} disabled={false} />
                     )}
-                    <FormSelect inptLabel={"Type"} name="type" options={["Wifi Router", "Switch", "Server", "Other"]} val={type} handleChange={setType} />
+                    <FormSelect inptLabel={"Type"} name="type" options={["Wifi Router", "Switch", "Server", "Other"]} val={type} className={"w-[49%]"} handleChange={setType} />
                     <div className="flex gap-2 mt-4 text-white w-full">
                         <button type="submit" className="h-8 w-20 bg-lightButton rounded-sm max-h-[34px]">Submit</button>
                         <button type="reset" className="h-8 w-20 border-2 border-gray-400 text-gray-400 rounded-sm" onClick={() => { handleReset(networkInfo) }}>Reset</button>

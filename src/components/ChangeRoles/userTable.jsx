@@ -85,13 +85,13 @@ export default function UserTable() {
         {
             accessorKey: "first_name",
             header: "First Name",
-            size: 150,
+            size: 120,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
             accessorKey: "last_name",
             header: "Last Name",
-            size: 150,
+            size: 120,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
@@ -111,14 +111,14 @@ export default function UserTable() {
         {
             accessorKey: "department",
             header: "Department",
-            size: 200,
+            size: 150,
             enableSorting: false,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
             accessorKey: "role",
             header: "Role",
-            size: 148,
+            size: 120,
             enableSorting: false,
             cell: (props) => <p>{props.getValue()}</p>
         },
@@ -210,8 +210,8 @@ export default function UserTable() {
                 />
             </div>
 
-            <div className="table-container scrollbar-hide">
-                <div className="flex flex-col min-w-[1100px]" >
+            <div className="table-container scrollbar-hide px-5">
+                <div className="flex flex-col min-w-[66rem]" >
                     {/* Table Headers */}
                     {table.getHeaderGroups().map(headerGroup => (
                         <div className="nltr" key={headerGroup.id}>
