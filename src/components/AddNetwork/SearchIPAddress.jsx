@@ -18,7 +18,7 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
   const data = useSelector(NetworkListSelector);
   const [networkAlreadyExists, setNetworkAlreadyExists] = useState(false);
   const [existingData,setExistingData] = useState("");
-  const [scannedData, setScannedData] = useState(useSelector(NetworkScannedDataSelector));
+  const scannedData = useSelector(NetworkScannedDataSelector);
   const [showPopup, setShowPopup] = useState(false);
 
   // Error toast states
@@ -180,7 +180,7 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
               </div>
 
               <div className="h-[70%] w-full p-8 rounded-xl bg-lightInputElementBgColor text-gray-500 dark:bg-darkInputElementBgColor">
-                {scannedData || existingData ? (
+                {Object.keys(scannedData || {}).length > 0 || Object.keys(existingData || {}).length > 0 ? (
                   <div className="h-full w-full overflow-auto scrollbar-hide">
                     <pre
                       style={{
@@ -215,7 +215,8 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
                     onClick={() => {
                       setShowPopup(false);
                       setIp("");
-                      setExistingData("");
+                      if(existingData){setExistingData("");}
+                      if(networkAlreadyExists){setNetworkAlreadyExists(false);}
                     }}
                   >
                     Cancel
