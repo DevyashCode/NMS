@@ -188,7 +188,8 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
                         wordBreak: "break-word",
                       }}
                     >
-                      {JSON.stringify(scannedData || existingData, null, 2)}
+                      {/* Display Data */}
+                      {JSON.stringify(scannedData[0] || existingData, null, 2)}
                     </pre>
                   </div>
                 ) : (
