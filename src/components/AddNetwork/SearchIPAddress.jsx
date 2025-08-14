@@ -17,6 +17,7 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
   const loading = useSelector(NetworkLoadingScan);
   const data = useSelector(NetworkListSelector);
   const [networkAlreadyExists, setNetworkAlreadyExists] = useState(false);
+  const [existingData,setExistingData] = useState("");
   const [scannedData, setScannedData] = useState(useSelector(NetworkScannedDataSelector));
   const [showPopup, setShowPopup] = useState(false);
 
@@ -67,7 +68,7 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
     setShowPopup(true);
     const existingIpDetails = data.find(network => network.ip_address === ip);
     if (existingIpDetails) {
-      setScannedData({
+      setExistingData({
         mac: existingIpDetails.mac_address,
         ip: existingIpDetails.ip_address,
         hostname: existingIpDetails.hostname,
@@ -80,7 +81,6 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
     }
     else {
       dispatch(scanIp({ ip }));
-      setScannedData(useSelector(NetworkScannedDataSelector));
     }
   };
 
@@ -180,7 +180,7 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
               </div>
 
               <div className="h-[70%] w-full p-8 rounded-xl bg-lightInputElementBgColor text-gray-500 dark:bg-darkInputElementBgColor">
-                {scannedData ? (
+                {scannedData || existingData ? (
                   <div className="h-full w-full overflow-auto scrollbar-hide">
                     <pre
                       style={{
@@ -188,7 +188,7 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
                         wordBreak: "break-word",
                       }}
                     >
-                      {JSON.stringify(scannedData, null, 2)}
+                      {JSON.stringify(scannedData || existingData, null, 2)}
                     </pre>
                   </div>
                 ) : (
@@ -215,6 +215,7 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
                     onClick={() => {
                       setShowPopup(false);
                       setIp("");
+                      setExistingData("");
                     }}
                   >
                     Cancel
