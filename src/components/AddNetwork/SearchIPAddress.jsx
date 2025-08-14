@@ -14,13 +14,7 @@ export default function SearchIpAddress({ setMacAddress, setIpAddress, setHostna
   const dispatch = useDispatch();
   const [ip, setIp] = useState("");
   const loading = useSelector(NetworkLoadingScan);
-  // const scannedData = useSelector(NetworkScannedDataSelector);
-  const scannedData = {
-    ip: "10.249.250.80",
-    mac: "12.321.54.321",
-    hostname: "Devyash",
-    os: "android"
-  }
+  const scannedData = useSelector(NetworkScannedDataSelector);
   const [showPopup, setShowPopup] = useState(false);
 
   // Error toast states
