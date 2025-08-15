@@ -99,6 +99,7 @@ export const deleteNetwork = createAsyncThunk(
 const initialState = {
   data: [],
   scannedData: "",
+  addedNetwork:"",
   loading: false,
   loadingScan: false,
   addLoading: false,
@@ -136,16 +137,17 @@ const NetworkListSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(addNetwork.pending, (state) => {
-        state.loading = true;
+        state.addLoading = true;
         state.error = null;
       })
       .addCase(addNetwork.fulfilled, (state, action) => {
-        state.loading = false;
+        state.addLoading = false;
         const addedNetwork = action.payload;
         state.data.unshift(addedNetwork);
+        state.addedNetwork = addedNetwork;
       })
       .addCase(addNetwork.rejected, (state, action) => {
-        state.loading = false;
+        state.addLoading = false;
         state.error = action.error.message;
       })
       .addCase(updateNetwork.pending, (state) => {
@@ -182,6 +184,8 @@ const NetworkListSlice = createSlice({
 export const NetworkListReducer = NetworkListSlice.reducer;
 export const NetworkListSelector = (state) => state.NetworkList.data;
 export const NetworkScannedDataSelector = (state) => state.NetworkList.scannedData;
+export const AddedNetworkSelector = (state) => state.NetworkList.addedNetwork;
 export const NetworkListLoading = (state) => state.NetworkList.loading;
 export const NetworkLoadingScan = (state) => state.NetworkList.loadingScan;
+export const NetworkAddLoading = (state) => state.NetworkList.loadingAdd;
 export const NetworkListError = (state) => state.NetworkList.error;

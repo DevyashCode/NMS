@@ -1,9 +1,13 @@
-import { NetworkListSelector, addNetwork, NetworkScannedDataSelector } from "../../Redux/Reducers/NetworkListReducer";
+import { addNetwork, NetworkAddLoading, AddedNetworkSelector, NetworkListError } from "../../Redux/Reducers/NetworkListReducer";
 import { FormInput, FormSelect } from "../Form/formInput";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PopupContainer from "../Popups/PopupContainer";
 import SubmitConfirmation from "../Popups/SubmitConfirmation";
+import ResetConfirmation from "../Popups/ResetConfirmation";
+import Lottie from "lottie-react";
+import Animation from "../Loading/PurpleLoader.json";
+import ObjectDisplay from "../ObjectDisplay/ObjectDisplay";
 
 export default function AddNetworkForm({
     macAddress, setMacAddress,
@@ -16,18 +20,15 @@ export default function AddNetworkForm({
     type, setType
 }) {
     const dispatch = useDispatch();
-    const scannedData = useSelector(NetworkScannedDataSelector);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [showSubmitConfirmation, setShowSubmitConfirmation] = useState(false);
+    const [showResetConfirmation, setShowResetConfirmation] = useState(false);
+    const loading = useSelector(NetworkAddLoading);
+    const addedNetwork = useSelector(AddedNetworkSelector);
+    const error = useSelector(NetworkListError);
+    const [showPopup, setShowPopup] = useState(false);
 
     const [formErrors, setFormErrors] = useState({});
-
-    useEffect(() => {
-        setMacAddress(scannedData.mac || "");
-        setIpAddress(scannedData.ip || "");
-        setHostname(scannedData.hostname || "");
-        setOS(scannedData.os || "");
-    }, [scannedData]);
 
     // Validation helpers
     const isValidIPv4 = (val) => {
@@ -79,7 +80,13 @@ export default function AddNetworkForm({
             "type": type
         }));
         setShowConfirmation(false);
+        setShowPopup(true)
     };
+
+    const handleButtonClick = () => {
+        setShowPopup(false);
+        handleReset();
+    }
 
     const handleReset = () => {
         setMacAddress("");
@@ -92,6 +99,11 @@ export default function AddNetworkForm({
         setType("");
         setFormErrors({});
     };
+
+    const handleResetClick = () => {
+        setShowConfirmation(true);
+        setShowResetConfirmation(true);
+    }
 
     const formItems = [
         { name: "Mac Address", key: "mac_address", placeholder: "Enter MAC Address", value: macAddress, method: setMacAddress },
@@ -142,7 +154,7 @@ export default function AddNetworkForm({
 
                     <div className="h-20 w-[49%] min-w-60 flex flex-grow gap-2">
                         <button type="submit" className="h-9 w-24 bg-lightButton mt-3 rounded-md text-white max-h-[34px]">Submit</button>
-                        <button type="reset" className="h-9 w-24 bg-[#F8FAFC] dark:bg-[#262C36] text-[#6F7482] mt-3 rounded-md border-1 border-[#6F7482] max-h-[34px]" onClick={handleReset}>Reset</button>
+                        <button type="reset" className="h-9 w-24 bg-[#F8FAFC] dark:bg-[#262C36] text-[#6F7482] mt-3 rounded-md border-1 border-[#6F7482] max-h-[34px]" onClick={handleResetClick}>Reset</button>
                     </div>
                 </form>
             </div>
@@ -155,8 +167,64 @@ export default function AddNetworkForm({
                             handleSubmitConfirmation={handleSubmitConfirmation}
                         />
                     )}
+
+                    {showResetConfirmation && (
+                        <ResetConfirmation 
+                            setShowConfirmation={setShowConfirmation}
+                            setShowResetConfirmation={setShowResetConfirmation}
+                            handleResetConfirmation={handleReset}
+                        />
+                    )}
                 </PopupContainer>
             )}
+
+            {/* Loading and Confirmation animation */}
+            {showPopup && (
+                <PopupContainer
+                    className={`justify-center items-center ${loading ? "w-110 h-60" : "w-150 h-90"}`}
+                >
+                    {loading && (
+                        <div className="w-50 h-50">
+                            <Lottie animationData={Animation} />
+                        </div>
+                    )}
+
+                    {!loading && (
+                        <div className="h-full w-full flex flex-col gap-2">
+                            <div className="h-12 flex items-center text-lg text-lightHeaderText justify-between w-full">
+                                <h1>IP : {addedNetwork.ip_address}</h1>
+                                <div className={(addedNetwork ? "border-green-500 text-green-500 bg-green-200/30 dark:bg-green-200/10" : "border-red-400 text-red-500 bg-red-200/30 dark:bg-orange-200/10") + " h-[60%] rounded-lg border-2 text-sm flex justify-center items-center px-3"}>
+                                    {addedNetwork ? "Network Added Successfully" : "Some Error Occured"}
+                                </div>
+                            </div>
+
+                            <div className="h-[70%] w-full p-8 rounded-xl bg-lightInputElementBgColor text-gray-500 dark:bg-darkInputElementBgColor">
+                                {addedNetwork ? (
+                                    <div className="h-full w-full overflow-auto scrollbar-hide">
+                                        <ObjectDisplay object={addedNetwork} />
+                                    </div>
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center">
+                                        <ObjectDisplay object={error} />
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="mt-3 w-full flex justify-between">
+                                <div></div>
+                                <div className="flex gap-2">
+                                    <button className={"h-8 w-25 rounded-sm text-white max-h-[34px] flex justify-center items-center " + (addedNetwork ? "bg-lightButton" : "bg-red-600")}
+                                        onClick={() => { handleButtonClick() }}
+                                    >
+                                        {addedNetwork ? "Done" : "Close"}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </PopupContainer >
+            )
+            }
         </>
     );
 }

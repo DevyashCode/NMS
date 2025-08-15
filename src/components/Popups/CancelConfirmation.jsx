@@ -7,7 +7,7 @@ function CancelConfirmation({ setShowConfirmation, setShowCancelConfirmation,han
       <div className="flex justify-center items-center w-full mb-4">
         <CgCloseO className="text-6xl text-red-500" />
       </div>
-      <div className="text-lg font-semibold text-center mb-6 mt-2">
+      <div className="text-lg font-semibold text-center mb-6 mt-2 dark:text-white">
         Are you sure you want to cancel?
       </div>
       {/* Buttons */}
