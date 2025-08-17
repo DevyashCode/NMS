@@ -2,7 +2,7 @@ import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { FaSort, FaSortAlphaDownAlt, FaSortAlphaUp } from "react-icons/fa";
-import { userSelector, userListLoading, userListError, fetchUserDetails,deleteUser } from "../../Redux/Reducers/userReducer";
+import { userSelector, userListLoading, userListError, fetchUserDetails, deleteUser } from "../../Redux/Reducers/userReducer";
 import Filters from "../Dashboard/Filters";
 import PopupContainer from "../Popups/PopupContainer";
 import EditUserForm from "./EditUserForm";
@@ -95,6 +95,13 @@ export default function UserTable() {
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
+            accessorKey: "username",
+            header: "Username",
+            size: 120,
+            enableSorting: false,
+            cell: (props) => <p>{props.getValue()}</p>
+        }, 
+        {
             accessorKey: "email",
             header: "Email",
             size: 200,
@@ -128,11 +135,11 @@ export default function UserTable() {
             size: 140,
             enableSorting: false,
             cell: (props) => {
-                const email = props.row.original.email;
+                const username = props.row.original.username;
                 return (
                     <div className="h-full w-full flex justify-center items-center gap-1" >
-                        <button className="h-7 w-12 bg-[#A6E7D8] text-xs rounded-sm text-[#008767] dark:bg-[#1C3122] font-semibold flex justify-center items-center border-1 border-[#00B087]" onClick={() => { handleEditClick(email) }}>Edit</button>
-                        <button className="h-7 w-14 bg-[#FFC5C5] text-xs rounded-sm text-[#DF0404] dark:text-[#D62A1B] dark:bg-[#311C1C] font-semibold flex justify-center items-center border-1 border-[#DF0404]" onClick={() => { handleDelete(email) }}>Delete</button>
+                        <button className="h-7 w-12 bg-[#A6E7D8] text-xs rounded-sm text-[#008767] dark:bg-[#1C3122] font-semibold flex justify-center items-center border-1 border-[#00B087]" onClick={() => { handleEditClick(username) }}>Edit</button>
+                        <button className="h-7 w-14 bg-[#FFC5C5] text-xs rounded-sm text-[#DF0404] dark:text-[#D62A1B] dark:bg-[#311C1C] font-semibold flex justify-center items-center border-1 border-[#DF0404]" onClick={() => { handleDelete(username) }}>Delete</button>
                     </div >
                 )
             }
@@ -141,6 +148,9 @@ export default function UserTable() {
 
     const dispatch = useDispatch();
     const data = useSelector(userSelector);
+    useEffect(() => {
+        console.log(data);
+    }, [])
     const loading = useSelector(userListLoading);
     const error = useSelector(userListError);
     const [globalFilter, setGlobalFilter] = useState('')
@@ -149,7 +159,7 @@ export default function UserTable() {
         pageIndex: 0
     });
 
-    const [email, setEmail] = useState("");
+    const [userName, setUserName] = useState("");
     const [showPopup, setShowPopup] = useState(false);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
@@ -174,22 +184,22 @@ export default function UserTable() {
     }, [dispatch]);
 
     const handlePopupClose = () => {
-        setEmail("");
+        setUserName("");
         setShowPopup(false);
     };
 
-    const handleEditClick = (selectedEmail) => {
-        setEmail(selectedEmail);
+    const handleEditClick = (selectedUserName) => {
+        setUserName(selectedUserName);
         setShowPopup(true);
     };
 
-    const handleDelete = (selectedEmail) => {
-        setEmail(selectedEmail);
+    const handleDelete = (selectedUserName) => {
+        setEmail(selectedUserName);
         setShowDeleteConfirmation(true);
     }
 
-    const handleDeleteConfirmation = (selectedEmail) => {
-        dispatch(deleteUser({ email: selectedEmail }));
+    const handleDeleteConfirmation = (selectedName) => {
+        dispatch(deleteUser({ username: selectedName }));
         setShowDeleteConfirmation(false);
         setMac("");
     }
@@ -272,7 +282,7 @@ export default function UserTable() {
 
             {showPopup &&
                 <PopupContainer handlePopupClose={handlePopupClose} closeOnOutsideClick={false} className={"h-[62%] lg:h-[50%] w-[90%] lg:w-[55%]"}>
-                    <EditUserForm email={email} handlePopupClose={handlePopupClose} />
+                    <EditUserForm userName={userName} handlePopupClose={handlePopupClose} />
                 </PopupContainer>
             }
 

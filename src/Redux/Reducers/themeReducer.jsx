@@ -14,7 +14,6 @@ const themeSlice = createSlice({
                 return "dark"
             }
             else{
-                console.log(state);
                 document.documentElement.classList.remove("dark");
                 localStorage.setItem("theme","light")
                 return "light";

@@ -4,6 +4,7 @@ export const fetchNetworkList = createAsyncThunk(
   "NetworkList/fetchNetworkList",
   async () => {
     const response = await fetch('http://127.0.0.1:8000/Network/');
+    // const response = await fetch('https://gc21q80j-8000.inc1.devtunnels.ms/Network/');
     if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
     return await response.json();
   }
@@ -14,6 +15,7 @@ export const scanIp = createAsyncThunk(
   async (ip, { rejectWithValue }) => {
     try {
       const response = await fetch('http://127.0.0.1:8000/Scan/', {
+      // const response = await fetch('https://gc21q80j-8000.inc1.devtunnels.ms/Scan/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(ip),
@@ -36,6 +38,7 @@ export const addNetwork = createAsyncThunk(
   async (networkData, { rejectWithValue }) => {
     try {
       const response = await fetch('http://127.0.0.1:8000/Network/', {
+      // const response = await fetch('https://gc21q80j-8000.inc1.devtunnels.ms/Network/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(networkData),
@@ -58,6 +61,7 @@ export const updateNetwork = createAsyncThunk(
   async ({ mac, networkData }, thunkAPI) => {
     try {
       const response = await fetch(`http://127.0.0.1:8000/Network/${mac}/`, {
+      // const response = await fetch(`https://gc21q80j-8000.inc1.devtunnels.ms/${mac}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -80,6 +84,7 @@ export const deleteNetwork = createAsyncThunk(
   async ({ mac }, thunkAPI) => {
     try {
       const response = await fetch(`http://127.0.0.1:8000/Network/${mac}/`, {
+      // const response = await fetch(`https://gc21q80j-8000.inc1.devtunnels.ms/${mac}/`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

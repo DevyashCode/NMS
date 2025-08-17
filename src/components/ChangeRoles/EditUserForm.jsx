@@ -7,7 +7,7 @@ import CancelConfirmation from "../Popups/CancelConfirmation";
 import SubmitConfirmation from "../Popups/SubmitConfirmation";
 
 
-function EditUserForm({ email, handlePopupClose }) {
+function EditUserForm({ userName, handlePopupClose }) {
 
     const dispatch = useDispatch();
     const data = useSelector(userSelector);
@@ -32,7 +32,7 @@ function EditUserForm({ email, handlePopupClose }) {
     useEffect(() => {
         if (!data || data.length === 0) return;
 
-        const index = data.findIndex((obj) => obj["email"] === email);
+        const index = data.findIndex((obj) => obj["username"] === userName);
         if (index !== -1) {
             const user = data[index];
             handleReset(user);
@@ -40,7 +40,7 @@ function EditUserForm({ email, handlePopupClose }) {
         } else {
             setInfo(null);
         }
-    }, [email, data]);
+    }, [userName, data]);
 
     const inputFields = [
         { "name": "First Name", "key": "first_name", "value": firstName, "method": setFirstName, disabled: false },
@@ -63,7 +63,7 @@ function EditUserForm({ email, handlePopupClose }) {
     const handleSubmitConfirmation = () => {
         setShowSubmitConfirmation(false);
         dispatch(updateUser({
-            email,
+            userName,
             userData: {
                 first_name: firstName,
                 last_name: lastName,

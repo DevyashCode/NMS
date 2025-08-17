@@ -33,9 +33,9 @@ export const addUser = createAsyncThunk(
 
 export const updateUser = createAsyncThunk(
   "users/updateUser",
-  async ({ email, userData }, thunkAPI) => {
+  async ({ userName, userData }, thunkAPI) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/UserAuth/${email}/`, {
+      const response = await fetch(`http://127.0.0.1:8000/UserAuth/${userName}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
