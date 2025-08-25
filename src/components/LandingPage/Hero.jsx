@@ -2,8 +2,10 @@ import Particles from "./Particles";
 import Spotlight from "./spotlight-new";
 import { HoverBorderGradient } from "../ui/hover-border-gradient";
 import ShinyText from "./ShinyText";
+import { NavLink } from "react-router-dom";
 
-function  Hero({handleLoginClick}) {
+// function  Hero({handleLoginClick}) {
+function  Hero() {
     return (
         <Particles
             particleColors={['#ffffff', '#ffffff']}
@@ -26,13 +28,15 @@ function  Hero({handleLoginClick}) {
                         <ShinyText text="Streamline, Secure, Simplify: Your Network, Perfected." disabled={false} speed={3} className='text-xl font-semibold' />
                     </div>
                 </div>
-                <div className="mt-5 flex justify-center text-center" onClick={handleLoginClick}>
+                {/* <div className="mt-5 flex justify-center text-center" onClick={handleLoginClick}> */}
+                <div className="mt-5 flex justify-center text-center">
                     <HoverBorderGradient
                         containerClassName="rounded-full"
                         as="button"
                         className="text-white flex items-center space-x-2 border-2 border-[#363636] w-30 justify-center"
                     >
-                        <span className="text-xl font-semibold">Login</span>
+                        <NavLink to="/login" className="text-xl font-semibold">Login</NavLink>
+                        {/* <span className="text-xl font-semibold">Login</span> */}
                     </HoverBorderGradient>
                 </div>
             </div>

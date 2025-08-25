@@ -4,6 +4,7 @@ import { themeReducer } from "./Reducers/themeReducer";
 import { portReducer } from "./Reducers/portReducer";
 import { userReducer } from "./Reducers/userReducer";
 import { svReducer } from "./Reducers/sideBarVisibilityReducer";
+import { AuthReducer } from "./Reducers/AuthReducer";
 
 const store = configureStore({
     reducer:{
@@ -11,7 +12,8 @@ const store = configureStore({
         theme:themeReducer,
         ports:portReducer,
         users:userReducer,
-        sidebarVisibility:svReducer
+        sidebarVisibility:svReducer,
+        Auth:AuthReducer
     }
 })
 

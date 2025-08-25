@@ -1,14 +1,14 @@
 import { RouterProvider } from 'react-router-dom';
-import routes from './Routes/routes';
-import store from './Redux/store';
-import { Provider } from 'react-redux';
+// import routes from './Routes/routes';
+import Routes from './Routes/routes';
+import useAuthPolling from './useAuthPolling';
 
 function App() {
+  useAuthPolling();
+
   return (
     <>
-      <Provider store={store}>
-        <RouterProvider router={routes} />
-      </Provider>
+      <RouterProvider router={Routes()} />
     </>
   )
 }

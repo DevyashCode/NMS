@@ -8,6 +8,11 @@ import DashboardWidget from "./Widget.jsx";
 import statusCounter from "./statusCounter.jsx";
 import { useState } from "react";
 
+// Temporary
+// import { IsAuthorisedSelector,UserSelector } from "../../Redux/Reducers/AuthReducer.jsx";
+// import { useSelector } from "react-redux";
+// import { useEffect } from "react";
+
 
 function Dashboard() {
     const widgets = [
@@ -49,6 +54,13 @@ function Dashboard() {
     const handleClick = (type) => {
         setColumnFilters([{ id: "type", value: type }]);
     };
+
+    // Temporary
+    // const isAuthorized = useSelector(IsAuthorisedSelector);
+    // const user = useSelector(UserSelector);
+    // useEffect(()=>{
+    //     console.log("After Redirect",isAuthorized, user);
+    // },[])
 
     return (
         <>

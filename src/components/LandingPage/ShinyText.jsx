@@ -12,16 +12,17 @@ const ShinyText = ({ text, disabled = false, speed = 5, className = '' }) => {
       }}
     >
       {text}
-      <style jsx>{`
-        @keyframes shineEffect {
-          0% {
-            background-position: 200% 0;
-          }
-          100% {
-            background-position: -200% 0;
-          }
-        }
-      `}</style>
+      <style>{`
+  @keyframes shineEffect {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+`}</style>
+
     </div>
   );
 };

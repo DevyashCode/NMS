@@ -1,7 +1,8 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { TbLayoutDashboardFilled } from "react-icons/tb";
+import { logout } from "../../Redux/Reducers/AuthReducer";
 import { CgAddR } from "react-icons/cg";
 import { FaList } from "react-icons/fa6";
 import { IoIosSpeedometer } from "react-icons/io";
@@ -13,7 +14,7 @@ import { BiLogOut } from "react-icons/bi";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { svSelector, svActions } from "../../Redux/Reducers/sideBarVisibilityReducer";
-
+import PopupContainer from "../Popups/PopupContainer";
 import mitsLogo from "./Nav Icons/mits-logo.png";
 import userAvator from "./Nav Icons/Avatar.png";
 
@@ -26,14 +27,16 @@ const navItems = [
   { to: "changeRole", label: "Change Role", icon: <IoExtensionPuzzleOutline /> },
   { to: "history", label: "History", icon: <LuHistory /> },
   { to: "settings", label: "Settings", icon: <IoIosSettings /> },
-  { to: "logout", label: "Logout", icon: <BiLogOut /> },
+  // { to: "logout", label: "Logout", icon: <BiLogOut /> },
 ];
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1184);
+  const [showPopup, setShowPopup] = useState(false);
   const isHidden = useSelector(svSelector);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const navBgRef = useRef();
 
   useEffect(() => {
@@ -49,6 +52,16 @@ export default function SideBar() {
 
   const toggleSidebarCollapse = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    setShowPopup(true);
+  };
+
+  const handleLogoutConfirmation = async () =>{
+    setShowPopup(false);
+    await dispatch(logout());
+    // navigate("/");
   };
 
   return (
@@ -121,6 +134,13 @@ export default function SideBar() {
                   {isOpen && <span>{label}</span>}
                 </NavLink>
               ))}
+              <div
+                onClick={handleLogout}
+                className={`navItem ${!isOpen && "nav-justify-center nav-item-closed-width"}`}
+              >
+                <span className="text-lg 2xl:text-2xl"><BiLogOut /></span>
+                {isOpen && <span>Logout</span>}
+              </div>
             </div>
           </div>
 
@@ -146,6 +166,55 @@ export default function SideBar() {
           </NavLink>
         </div>
       )}
+
+      {
+        showPopup &&
+        <PopupContainer>
+          <div className="bg-white dark:bg-darkComponentBackground rounded-xl p-6 w-110 max-w-full text-center">
+            {/* Logout icon */}
+            <div className="text-red-600 dark:text-red-400 text-6xl mb-4 select-none">
+              {/* Simple logout icon using SVG */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="mx-auto h-12 w-12"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"
+                />
+              </svg>
+            </div>
+            {/* Title */}
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-200 mb-2">
+              Confirmation
+            </h2>
+            {/* Message */}
+            <p className="mb-6 text-gray-900 dark:text-gray-200">
+              Are you sure you want to Logout?
+            </p>
+            {/* Buttons */}
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleLogoutConfirmation}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+              >
+                Confirm
+              </button>
+              <button
+                onClick={() => setShowPopup(false)}
+                className="px-4 py-2 bg-gray-300 dark:bg-gray-600 dark:text-white rounded hover:bg-gray-400 dark:hover:bg-gray-500 transition"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </PopupContainer>
+      }
     </>
   );
 }

@@ -5,23 +5,23 @@ import AffiliatedWith from "./AffiliatedWithSection/AffiliatedWith";
 import Team from "./Team/Team";
 import Features from "./Features/Features";
 import Footer from "./Footer/Footer";
-import LoginPopup from "../Login/LoginPopup";
-import { useState } from "react";
+// import { useState } from "react";
 
 export default function Main() {
-    const [showPopup, setShowPopup] = useState(false);
-    const handleLoginClick = (selectedIp) => {
-        setShowPopup(true);
-    };
-    const handlePopupClose = () => {
-        setShowPopup(false);
-    }
+    // const [showPopup, setShowPopup] = useState(false);
+    // const handleLoginClick = (selectedIp) => {
+    //     setShowPopup(true);
+    // };
+    // const handlePopupClose = () => {
+    //     setShowPopup(false);
+    // }
     return (
         <div className="h-full min-w-full bg-black">
             <LandingNav />
-            {showPopup && <LoginPopup handlePopupClose={handlePopupClose} />}
+            {/* {showPopup && <LoginPopup handlePopupClose={handlePopupClose} />} */}
             <section id="home" className="h-full w-full">
-                <Hero handleLoginClick={handleLoginClick} />
+                {/* <Hero handleLoginClick={handleLoginClick} /> */}
+                <Hero/>
             </section>
             <section id="about">
                 <AboutUs />
