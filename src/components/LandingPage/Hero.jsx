@@ -35,7 +35,7 @@ function  Hero() {
                         as="button"
                         className="text-white flex items-center space-x-2 border-2 border-[#363636] w-30 justify-center"
                     >
-                        <NavLink to="/login" className="text-xl font-semibold">Login</NavLink>
+                        <NavLink to="/user" className="text-xl font-semibold">Login</NavLink>
                         {/* <span className="text-xl font-semibold">Login</span> */}
                     </HoverBorderGradient>
                 </div>
