@@ -122,13 +122,14 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
       ),
     },
     {
-      accessorKey: "ip_address",
+      // accessorKey: "ip_address",
+      accessorKey: "ipAddress",
       header: "IP Address",
       size: 100,
       cell: (props) => <p>{props.getValue()}</p>,
     },
     {
-      accessorKey: "hostname",
+      accessorKey: "hostName",
       header: "Host Name",
       size: 90,
       enableSorting: false,
@@ -175,7 +176,8 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
       size: 90,
       enableSorting: false,
       cell: (props) => {
-        const rowIp = props.row.original.ip_address;
+        // const rowIp = props.row.original.ip_address;
+        const rowIp = props.row.original.ipAddress;
         return (
           <button
             onClick={() => handlePortClick(rowIp)}
