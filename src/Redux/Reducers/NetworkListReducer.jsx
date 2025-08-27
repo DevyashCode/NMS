@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import data from "../data";
 
 export const fetchNetworkList = createAsyncThunk(
   "NetworkList/fetchNetworkList",
@@ -102,7 +101,7 @@ export const deleteNetwork = createAsyncThunk(
 )
 
 const initialState = {
-  data: data,
+  data: [],
   scannedData: "",
   addedNetwork:"",
   loading: false,
@@ -123,11 +122,11 @@ const NetworkListSlice = createSlice({
       })
       .addCase(fetchNetworkList.fulfilled, (state, action) => {
         state.loading = false;
-        // state.data = action.payload;
+        state.data = action.payload;
       })
       .addCase(fetchNetworkList.rejected, (state, action) => {
         state.loading = false;
-        // state.error = action.error.message;
+        state.error = action.error.message;
       })
       .addCase(scanIp.pending, (state) => {
         state.loadingScan = true;

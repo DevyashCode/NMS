@@ -13,6 +13,7 @@ import {
   NetworkListError,
   fetchNetworkList,
 } from "../../Redux/Reducers/NetworkListReducer";
+import { UserSelector } from "../../Redux/Reducers/AuthReducer";
 import { useState, useEffect } from "react";
 import { BsUsbSymbol } from "react-icons/bs";
 import PingInput from "./PingInputContainer";
@@ -194,6 +195,7 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
   const dispatch = useDispatch();
   const data = useSelector(dbSelector);
   const loading = useSelector(NetworkListLoading);
+  const user = useSelector(UserSelector);
   const error = useSelector(NetworkListError);
 
   const [globalFilter, setGlobalFilter] = useState("");
@@ -236,104 +238,110 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
 
       {/* Header and search */}
       <div className="flex flex-wrap justify-between gap-2 mb-2 2xl:mt-4">
-        <PingInput/>
-        <div className="flex gap-2">
-          <Filters globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
-          <div className="h-9 w-9 2xl:h-11 2xl:w-11 rounded-[50px] flex justify-center items-center bg-lightInputElementBgColor dark:bg-darkInputElementBgColor text-lightInputElementTextColor" onClick={()=>{setColumnFilters([]);setGlobalFilter("")}} ><IoReload className="text-xl font-bold" /></div>
-        </div>
+        <PingInput />
+        {user.role != 'user' &&
+          <div className="flex gap-2">
+            <Filters globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
+            <div className="h-9 w-9 2xl:h-11 2xl:w-11 rounded-[50px] flex justify-center items-center bg-lightInputElementBgColor dark:bg-darkInputElementBgColor text-lightInputElementTextColor" onClick={() => { setColumnFilters([]); setGlobalFilter("") }} ><IoReload className="text-xl font-bold" /></div>
+          </div>
+        }
       </div>
 
-      <div className="table-container scrollbar-hide">
-        <div className="flex flex-col flex-grow min-w-[66rem]">
-          {/* Table header */}
-          {table.getHeaderGroups().map((headerGroup) => (
-            <div key={headerGroup.id} className="header-row">
-              {headerGroup.headers.map((header) => (
-                <div
-                  key={header.id}
-                  className="th"
-                  style={{ width: header.getSize() }}
-                >
-                  {header.column.columnDef.header}
-                  {header.column.getCanSort() && (
-                    <FaSort
-                      onClick={header.column.getToggleSortingHandler()}
-                      className="mx-1"
-                    />
-                  )}
-                  {{
-                    desc: <FaSortAlphaDownAlt />,
-                    asc: <FaSortAlphaUp />,
-                  }[header.column.getIsSorted()]}
+      {user.role != 'user' &&
+        <>
+          <div className="table-container scrollbar-hide">
+            <div className="flex flex-col flex-grow min-w-[66rem]">
+              {/* Table header */}
+              {table.getHeaderGroups().map((headerGroup) => (
+                <div key={headerGroup.id} className="header-row">
+                  {headerGroup.headers.map((header) => (
+                    <div
+                      key={header.id}
+                      className="th"
+                      style={{ width: header.getSize() }}
+                    >
+                      {header.column.columnDef.header}
+                      {header.column.getCanSort() && (
+                        <FaSort
+                          onClick={header.column.getToggleSortingHandler()}
+                          className="mx-1"
+                        />
+                      )}
+                      {{
+                        desc: <FaSortAlphaDownAlt />,
+                        asc: <FaSortAlphaUp />,
+                      }[header.column.getIsSorted()]}
+                    </div>
+                  ))}
                 </div>
               ))}
-            </div>
-          ))}
 
-          {/* Skeleton or Table rows */}
-          {loading ? (
-            Array.from({ length: skeletonRowCount }).map((_, idx) => (
-              <SkeletonRow columns={columns} rowKey={idx} key={idx} />
-            ))
-          ) : error ? (
-            <div className="tr">
-              <div className="td text-tomato-500 p-4" colSpan={columns.length}>
-                {error}
-              </div>
-            </div>
-          ) : data && data.length > 0 ? (
-            table.getRowModel().rows.map((row) => (
-              <div key={row.id} className="tr">
-                {row.getVisibleCells().map((cell) => (
-                  <div
-                    key={cell.id}
-                    className="td"
-                    style={{
-                      width: cell.column.getSize(),
-                    }}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              {/* Skeleton or Table rows */}
+              {loading ? (
+                Array.from({ length: skeletonRowCount }).map((_, idx) => (
+                  <SkeletonRow columns={columns} rowKey={idx} key={idx} />
+                ))
+              ) : error ? (
+                <div className="tr">
+                  <div className="td text-tomato-500 p-4" colSpan={columns.length}>
+                    {error}
                   </div>
-                ))}
-              </div>
-            ))
-          ) : (
-            <div className="tr">
-              <div className="td p-4" colSpan={columns.length}>
-                No data found
-              </div>
+                </div>
+              ) : data && data.length > 0 ? (
+                table.getRowModel().rows.map((row) => (
+                  <div key={row.id} className="tr">
+                    {row.getVisibleCells().map((cell) => (
+                      <div
+                        key={cell.id}
+                        className="td"
+                        style={{
+                          width: cell.column.getSize(),
+                        }}
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </div>
+                    ))}
+                  </div>
+                ))
+              ) : (
+                <div className="tr">
+                  <div className="td p-4" colSpan={columns.length}>
+                    No data found
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </div>
+          </div>
 
-      {/* Pagination footer */}
-      <div className="flex w-full mt-3 px-1 justify-end">
-        <div className="flex">
-          <button
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            className="h-10 w-10 bg-lightButton mr-2 rounded-md text-white max-h-[34px]"
-          >
-            {"<"}
-          </button>
-          <p className="text-lg text-lightHeaderText mr-2">
-            {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-          </p>
-          <button
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            className="h-10 w-10 bg-lightButton rounded-md text-white max-h-[34px]"
-          >
-            {">"}
-          </button>
-        </div>
-      </div>
+          {/* Pagination footer */}
+          <div className="flex w-full mt-3 px-1 justify-end">
+            <div className="flex">
+              <button
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+                className="h-10 w-10 bg-lightButton mr-2 rounded-md text-white max-h-[34px]"
+              >
+                {"<"}
+              </button>
+              <p className="text-lg text-lightHeaderText mr-2">
+                {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+              </p>
+              <button
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+                className="h-10 w-10 bg-lightButton rounded-md text-white max-h-[34px]"
+              >
+                {">"}
+              </button>
+            </div>
+          </div>
 
-      {showPopup &&
-        <PopupContainer handlePopupClose={handlePopupClose} className={"h-[62%] lg:h-[55%] w-[90%] lg:w-[55%]"}>
-          <PortDisplay ip={ip} handlePopupClose={handlePopupClose} />
-        </PopupContainer>
+          {showPopup &&
+            <PopupContainer handlePopupClose={handlePopupClose} className={"h-[62%] lg:h-[55%] w-[90%] lg:w-[55%]"}>
+              <PortDisplay ip={ip} handlePopupClose={handlePopupClose} />
+            </PopupContainer>
+          }
+        </>
       }
     </>
   );

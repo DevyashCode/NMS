@@ -190,7 +190,14 @@ export const checkAuth = createAsyncThunk(
           await dispatch(refreshToken());
         } else {
           dispatch(setAuthorized(true));
-          dispatch(setUser(decoded));
+          dispatch(setUser({ 
+            email: decoded.email,
+            firstname: decoded.first_name,
+            lastname: decoded.last_name,
+            role: decoded.role,
+            profile_image: decoded.profile_image,
+          }));
+          // dispatch(setUser(decoded));
         }
       } catch (error) {
         dispatch(logout());

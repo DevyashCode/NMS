@@ -11,7 +11,7 @@ export const fetchPortList = createAsyncThunk(
 );
 
 const initialState = {
-    data: ports,
+    data: "",
     loading: false,
     error: null,
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { GOOGLE_ACCESS_TOKEN } from "../../token";
@@ -7,8 +7,24 @@ import { FormInput, FormSelect } from "../Form/formInput";
 function Register() {
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const email = queryParams.get("email");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [profile, setProfile] = useState("");
+
+  useEffect(() => {
+    console.log("useEffect called!")
+    const queryParams = new URLSearchParams(location.search);
+    console.log(queryParams);
+    const email = queryParams.get("email");
+    const firstName = queryParams.get("first_name");
+    const lastName = queryParams.get("last_name");
+    const profileImage = queryParams.get("profile_image");
+    if (email) setEmail(email);
+    if (firstName) setFirstName(firstName);
+    if (lastName) setLastName(lastName);
+    if (profileImage) setProfile(profileImage);
+  }, [])
 
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
@@ -16,32 +32,53 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8000/api/register/", {
+        email,
+        first_name: firstName,
+        last_name: lastName,
+        profile_image: profile,
+        phone_number: phone,
+        department,
+        password
+      });
+
+      if (response.status === 201) {
+        navigate("/user");
+      }
+    } catch (error) {
+      if (error.response) {
+        console.error("Error registering user:", error.response.data);
+      } else {
+        console.error("Error:", error.message);
+      }
+    }
   };
 
   const formFields = [
     {
       inptLabel: "Email",
       placeholder: "Enter your email",
-      name:"email",
+      name: "email",
       type: "email",
-      value: email,
-      handleChange: (e) => setEmail(e.target.value),
-    },    
+      val: email,
+      handleChange: setEmail,
+    },
     {
       inptLabel: "Phone",
       placeholder: "Enter your phone number",
-      name:"phone",
+      name: "phone",
       type: "tel",
-      value: phone,
-      handleChange: (e) => setPhone(e.target.value),
-    },      
+      val: phone,
+      handleChange: setPhone,
+    },
     {
       inptLabel: "Password",
       placeholder: "Enter your password",
-      name:"password",
+      name: "password",
       type: "password",
-      value: password,
-      handleChange: (e) => setPassword(e.target.value),
+      val: password,
+      handleChange: setPassword,
     }
   ];
 
@@ -65,10 +102,10 @@ function Register() {
                 inptLabel="Department"
                 name="department"
                 options={["Computer Science", "Information Technology", "Mechanical"]}
-                value={department}
-                handleChange={(e) => setDepartment(e.target.value)}
+                val={department}
+                handleChange={setDepartment}
               />
-              <button type="submit" className="h-12 w-full bg-purple-600 rounded-xl font-bold text-white">Continue</button>
+              <button type="submit" className="h-12 w-full bg-purple-600 rounded-xl font-bold text-white" onSubmit={handleSubmit}>Continue</button>
             </form>
           </div>
         </div>

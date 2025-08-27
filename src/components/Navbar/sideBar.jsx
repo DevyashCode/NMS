@@ -1,7 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { TbLayoutDashboardFilled } from "react-icons/tb";
+import { UserSelector } from "../../Redux/Reducers/AuthReducer";
 import { logout } from "../../Redux/Reducers/AuthReducer";
 import { CgAddR } from "react-icons/cg";
 import { FaList } from "react-icons/fa6";
@@ -18,29 +19,31 @@ import PopupContainer from "../Popups/PopupContainer";
 import mitsLogo from "./Nav Icons/mits-logo.png";
 import userAvator from "./Nav Icons/Avatar.png";
 
-const navItems = [
-  { to: "dashboard", label: "Dashboard", icon: <TbLayoutDashboardFilled /> },
-  { to: "addNetwork", label: "Add Network", icon: <CgAddR /> },
-  { to: "networkList", label: "Network List", icon: <FaList /> },
-  { to: "serverSpeedTest", label: "Server Speed Test", icon: <IoIosSpeedometer /> },
-  { to: "portsAvailable", label: "Ports Available", icon: <BsUsbSymbol /> },
-  { to: "changeRole", label: "Change Role", icon: <IoExtensionPuzzleOutline /> },
-  { to: "history", label: "History", icon: <LuHistory /> },
-  { to: "settings", label: "Settings", icon: <IoIosSettings /> },
-  // { to: "logout", label: "Logout", icon: <BiLogOut /> },
-];
-
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1184);
   const [showPopup, setShowPopup] = useState(false);
   const isHidden = useSelector(svSelector);
+  const user = useSelector(UserSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const navBgRef = useRef();
 
+  const navItems = [
+    { to: "dashboard", label: "Dashboard", icon: <TbLayoutDashboardFilled />, ishidden: false },
+    { to: "addNetwork", label: "Add Network", icon: <CgAddR />, ishidden: user.role != "admin" },
+    { to: "networkList", label: "Network List", icon: <FaList />, ishidden: user.role != "admin" },
+    { to: "serverSpeedTest", label: "Server Speed Test", icon: <IoIosSpeedometer />, ishidden: user.role != "admin" },
+    { to: "portsAvailable", label: "Ports Available", icon: <BsUsbSymbol />, ishidden: user.role != "admin" },
+    { to: "changeRole", label: "Change Role", icon: <IoExtensionPuzzleOutline />, ishidden: user.role != "admin" },
+    { to: "history", label: "History", icon: <LuHistory />, ishidden: user.role != "admin" },
+    { to: "settings", label: "Settings", icon: <IoIosSettings />, ishidden: false },
+    // { to: "logout", label: "Logout", icon: <BiLogOut /> },
+  ];
+
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 1184);
+    console.log(user);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -58,10 +61,10 @@ export default function SideBar() {
     setShowPopup(true);
   };
 
-  const handleLogoutConfirmation = async () =>{
+  const handleLogoutConfirmation = async () => {
     setShowPopup(false);
     await dispatch(logout());
-    // navigate("/");
+    navigate("/");
   };
 
   return (
@@ -107,7 +110,8 @@ export default function SideBar() {
           {/* Nav Items */}
           <div className="mt-6 w-full text-lightNavbarText dark:text-darkNavbarText items-center font-normal">
             <div className="flex flex-col items-center">
-              {navItems.slice(0, 6).map(({ to, label, icon }, i) => (
+              {navItems.slice(0, 6).map(({ to, label, icon, ishidden }, i) => (
+                !ishidden &&
                 <NavLink
                   key={i}
                   to={to}
@@ -122,7 +126,8 @@ export default function SideBar() {
             </div>
             <hr className="mt-6" />
             <div className="flex flex-col items-center mt-6">
-              {navItems.slice(6).map(({ to, label, icon }, i) => (
+              {navItems.slice(6).map(({ to, label, icon, ishidden }, i) => (
+                !ishidden &&
                 <NavLink
                   key={i}
                   to={to}

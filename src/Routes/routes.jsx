@@ -37,8 +37,8 @@ const Routes = () => {
             path: "/register", element: <Register />
         },
         {
-            // path: "/user", element: isAuthorized ? <Navbar /> : <Navigate to="/login" replace={true} />, children: [
-            path: "/user", element:  <Navbar /> , children: [
+            path: "/user", element: isAuthorized ? <Navbar /> : <Navigate to="/login" replace={true} />, children: [
+            // path: "/user", element:  <Navbar /> , children: [
                 { index: true, element: <Navigate to="dashboard" replace /> },
                 { path: "dashboard", element: <Dashboard /> },
                 { path: "addNetwork", element: <AddNetwork /> },
