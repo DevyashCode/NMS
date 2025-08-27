@@ -203,7 +203,7 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchNetworkList());
+    user.role != 'user' && dispatch(fetchNetworkList());
   }, [dispatch]);
 
   const handlePortClick = (selectedIp) => {
