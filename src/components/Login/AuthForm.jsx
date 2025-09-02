@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../Redux/Reducers/AuthReducer";
 import googleLogo from "./Images/icons8-google-logo-480.png";
 import { IsAuthorisedSelector } from "../../Redux/Reducers/AuthReducer";
+import Lottie from "lottie-react";
+import Animation from "../Loading/PurpleLoader.json"
+import mitslogo from "../../assets/mits-logo.png";
 
 const AuthForm = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +37,6 @@ const AuthForm = () => {
 
       if (login.fulfilled.match(resultAction)) {
         setSuccess("Login successful!");
-        // navigate("/user", { replace: true });
       } else {
         throw new Error(resultAction.payload || "Login failed");
       }
@@ -47,75 +49,91 @@ const AuthForm = () => {
 
   const handleGoogleLogin = async () => {
     window.location.href = "http://localhost:8000/accounts/google/login/";
-    // const res = await fetch("http://localhost:8000/auth/google/url/");
-    // const data = await res.json();
-    // console.log("Google Auth URL:", data.auth_url);
-    // window.location.href = data.auth_url;
   };
 
   return (
-    <div className="w-[100%] h-[75%]">
+    <div className="w-[100%] h-[75%] xl:flex xl:h-[98%] xl:justify-center xl:items-center">
       {loading && (
-        <div className="text-white">Processing...</div>
+        <div className="h-full w-full flex flex-col justify-center items-center">
+          <div className="w-50 h-50 flex flex-col justify-center items-center -mt-8">
+            <Lottie animationData={Animation} />
+          </div>
+        </div>
       )}
 
       {!loading && (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-center">
-          <h2 className="text-white font-bold text-2xl">Login</h2>
-          {error && <div className="text-red-500">{error}</div>}
-          {success && <div className="text-green-500">{success}</div>}
-
-          {/* Email input */}
-          <div className="h-12 w-full flex flex-col gap-2">
-            <input
-              type="email"
-              className="flex h-full w-full pl-3 rounded-md bg-darkInputElementBgColor text-lightInputElementTextColor"
-              placeholder="Email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+        <>
+          {/* <div className="w-full flex h-[30%] flex-col justify-center items-center border-2 border-white rounded-2xl mt-10 mb-5 bg-white/20"> */}
+          <div className="w-full flex h-[20%] md:h-[35%] justify-center items-center mb-5 xl:h-full xl:w-[55%]">
+            <img src="https://raw.githubusercontent.com/rahulrawat95r/XamDruImg/main/loginbanner.jpg" alt="mits-logo" className="h-full w-full" />
           </div>
-
-          {/* Password input */}
-          <div className="h-12 w-full flex flex-col gap-2">
-            <input
-              type="password"
-              className="flex h-full w-full pl-3 rounded-md bg-darkInputElementBgColor text-lightInputElementTextColor"
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+          <div className="w-full bg-black -mt-15 md:-mt-18 flex justify-center items-center xl:w-[10%]">
+            <div className="h-24 w-24 md:h-28 md:w-28 bg-black/60 flex items-center justify-center rounded-full ">
+              <img src={mitslogo} alt="mits-logo" className="h-22 w-22 md:h-28 md:w-28" />
+            </div>
           </div>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5 text-center w-full px-6 md:px-50 lg:px-80 xl:w-[35%] xl:px-10 mt-2 border-2 border-yellow-600">
+            <h2 className="text-white font-semibold text-xl">Login</h2>
+            {error && <div className="text-red-500">{error}</div>}
+            {success && <div className="text-green-500">{success}</div>}
 
-          {/* Submit */}
-          <button
-            type="submit"
-            className="h-12 w-full bg-purple-800 text-white rounded-md"
-          >
-            Login
-          </button>
+            {/* Email input */}
+            <div className="h-12 w-full flex flex-col gap-2">
+              <input
+                type="email"
+                className="flex h-full w-full pl-3 rounded-md bg-darkInputElementBgColor text-lightInputElementTextColor"
+                placeholder="Email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-          <hr className="border-white" />
+            {/* Password input */}
+            <div className="h-12 w-full flex flex-col gap-2">
+              <input
+                type="password"
+                className="flex h-full w-full pl-3 rounded-md bg-darkInputElementBgColor text-lightInputElementTextColor"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
-          {/* Google Login */}
-          <button
-            type="button"
-            className="h-12 w-full bg-white rounded-md flex justify-center items-center"
-            onClick={handleGoogleLogin}
-          >
-            <img
-              src={googleLogo}
-              alt="google-icon"
-              className="h-[55%] w-[10%] object-contain mr-2 font-bold"
-            />
-            Login With Google
-          </button>
-        </form>
+            {/* Submit */}
+            <button
+              type="submit"
+              className="h-12 w-full bg-purple-800 text-white rounded-md"
+            >
+              Login
+            </button>
+            <div className="w-full flex">
+              <div className="flex flex-grow"></div>
+              <h1 className="text-[#007AFF]">Forget Password ?</h1>
+            </div>
+
+            <hr className="border-white" />
+
+            {/* Google Login */}
+            <button
+              type="button"
+              className="h-12 w-full bg-white rounded-md flex justify-center items-center"
+              onClick={handleGoogleLogin}
+            >
+              <img
+                src={googleLogo}
+                alt="google-icon"
+                className="h-[55%] w-[10%] object-contain mr-2 font-bold"
+              />
+              Continue With Google
+            </button>
+          </form>
+        </>
       )}
+
     </div>
   );
 };

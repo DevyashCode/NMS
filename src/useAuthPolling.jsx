@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { checkAuth } from './Redux/Reducers/AuthReducer';
 
 export default function useAuthPolling() {
+    console.log("Auth Polling Hook Initialized");
     const dispatch = useDispatch();
 
     useEffect(() => {

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import data from "../data";
 
 export const fetchNetworkList = createAsyncThunk(
   "NetworkList/fetchNetworkList",

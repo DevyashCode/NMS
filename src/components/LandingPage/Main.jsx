@@ -8,13 +8,6 @@ import Footer from "./Footer/Footer";
 // import { useState } from "react";
 
 export default function Main() {
-    // const [showPopup, setShowPopup] = useState(false);
-    // const handleLoginClick = (selectedIp) => {
-    //     setShowPopup(true);
-    // };
-    // const handlePopupClose = () => {
-    //     setShowPopup(false);
-    // }
     return (
         <div className="h-full min-w-full bg-black">
             <LandingNav />
