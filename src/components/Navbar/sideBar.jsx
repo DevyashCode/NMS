@@ -141,7 +141,7 @@ export default function SideBar() {
               ))}
               <div
                 onClick={handleLogout}
-                className={`navItem ${!isOpen && "nav-justify-center nav-item-closed-width"}`}
+                className={`navItem mt-2 ${!isOpen && "nav-justify-center nav-item-closed-width"}`}
               >
                 <span className="text-lg 2xl:text-2xl"><BiLogOut /></span>
                 {isOpen && <span>Logout</span>}
@@ -160,8 +160,8 @@ export default function SideBar() {
               />
               {isOpen && (
                 <div className="h-13 w-50 2xl:h-18 2xl:text-xl flex flex-col justify-center dark:text-darkWelcomeText">
-                  <h3>Welcome Back</h3>
-                  <h1>Admin</h1>
+                  <h3>Welcome</h3>
+                  <h1>{user ? user.first_name : "User"}</h1>
                 </div>
               )}
               {isOpen &&

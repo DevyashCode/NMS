@@ -9,13 +9,12 @@ function LoginPage() {
 
     return (
         <div className="h-full w-full bg-black flex flex-col justify-between items-center">
-            <div className="h-[90%] w-full flex items-center justify-center">
-                <div className="h-full w-full flex justify-center">
+            <div className="h-[90%] w-full flex items-center justify-center flex-grow">
+                <div className="h-full w-full flex">
                     <AuthForm route={route} />
                 </div>
             </div>
-            <div className="border-t border-white/30 py-4 sm:py-6 flex items-center justify-center">
-            {/* <div className="py-4 sm:py-6 flex items-center justify-center border-5 border-red-800"> */}
+            <div className="border-t border-white/30 py-4 sm:py-6 flex items-center justify-center xl:w-full xl:h-14">
                 <h3 className="text-white/80 text-xs sm:text-sm lg:text-base text-center leading-relaxed">
                     © 2025 NMS MITS : Software Development Club
                 </h3>
