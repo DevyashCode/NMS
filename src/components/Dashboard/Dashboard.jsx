@@ -79,7 +79,7 @@ function Dashboard() {
 
                 {/* Network Table */}
                 <div className={"w-full flex flex-col bg-lightComponentBackground dark:bg-darkComponentBackground rounded-2xl shadow-md px-8 pt-4 "+ (user.role != 'user' ? 'mt-1 mb-12 lg:mt-4 min-h-128 2xl:min-h-150' : 'pb-2')}>
-                    {user.role != "user" &&
+                    { (user.role === "admin" || user.role === "technician") &&
                         <div className="h-12 flex items-center">
                             <h1 className="text-lg 2xl:text-2xl text-lightHeaderText">Network Available</h1>
                         </div>

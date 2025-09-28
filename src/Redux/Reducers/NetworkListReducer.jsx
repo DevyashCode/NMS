@@ -4,7 +4,18 @@ import data from "../data";
 export const fetchNetworkList = createAsyncThunk(
   "NetworkList/fetchNetworkList",
   async () => {
-    const response = await fetch('http://127.0.0.1:8000/Network/');
+    const AccessToken = localStorage.getItem("access_token");
+    const googleToken = localStorage.getItem("google_access_token");
+    const token = AccessToken ? AccessToken : googleToken;
+
+
+    const response = await fetch('http://127.0.0.1:8000/Network/',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
     // const response = await fetch('https://gc21q80j-8000.inc1.devtunnels.ms/Network/');
     if (!response.ok) throw new Error(`Failed to fetch: ${response.statusText}`);
     return await response.json();

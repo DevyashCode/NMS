@@ -203,7 +203,7 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    user.role != 'user' && dispatch(fetchNetworkList());
+    (user.role === "admin" || user.role === "technician") && dispatch(fetchNetworkList());
   }, [dispatch]);
 
   const handlePortClick = (selectedIp) => {
@@ -239,7 +239,7 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
       {/* Header and search */}
       <div className="flex flex-wrap justify-between gap-2 mb-2 2xl:mt-4">
         <PingInput />
-        {user.role != 'user' &&
+        {(user.role === "admin" || user.role === "technician") &&
           <div className="flex gap-2">
             <Filters globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
             <div className="h-9 w-9 2xl:h-11 2xl:w-11 rounded-[50px] flex justify-center items-center bg-lightInputElementBgColor dark:bg-darkInputElementBgColor text-lightInputElementTextColor" onClick={() => { setColumnFilters([]); setGlobalFilter("") }} ><IoReload className="text-xl font-bold" /></div>
@@ -247,7 +247,7 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
         }
       </div>
 
-      {user.role != 'user' &&
+      {(user.role === "admin" || user.role === "technician") &&
         <>
           <div className="table-container scrollbar-hide">
             <div className="flex flex-col flex-grow min-w-[66rem]">
