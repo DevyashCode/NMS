@@ -13,6 +13,7 @@ function Register() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [profile, setProfile] = useState("");
+  
 
   useEffect(() => {
     console.log("useEffect called!")
