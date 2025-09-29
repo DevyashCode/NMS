@@ -7,7 +7,12 @@ export const fetchNetworkList = createAsyncThunk(
     const AccessToken = localStorage.getItem("access_token");
     const googleToken = localStorage.getItem("google_access_token");
     const token = AccessToken ? AccessToken : googleToken;
-
+    console.log("Using token:", token);
+    // console.log("Using token:", token);
+    // console.log("Using token:", token);
+    // console.log("Using token:", token);
+    // console.log("Using token:", token);
+    // console.log("Using token:", token);
 
     const response = await fetch('http://127.0.0.1:8000/Network/',{
       method: 'GET',
