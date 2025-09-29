@@ -123,8 +123,8 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
       ),
     },
     {
-      // accessorKey: "ip_address",
-      accessorKey: "ipAddress",
+      accessorKey: "ip_address",
+      // accessorKey: "ipAddress",
       header: "IP Address",
       size: 100,
       cell: (props) => <p>{props.getValue()}</p>,
