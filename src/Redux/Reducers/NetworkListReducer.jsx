@@ -9,7 +9,7 @@ export const fetchNetworkList = createAsyncThunk(
     const token = AccessToken ? AccessToken : googleToken;
     console.log("Using token:", token);
 
-    const response = await fetch('http://127.0.0.1:8000/Network/',{
+    const response = await fetch('http://127.0.0.1:8000/Network/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -25,11 +25,15 @@ export const fetchNetworkList = createAsyncThunk(
 export const scanIp = createAsyncThunk(
   "NetworkList/searchIp",
   async (ip, { rejectWithValue }) => {
+    const AccessToken = localStorage.getItem("access_token");
+    const googleToken = localStorage.getItem("google_access_token");
+    const token = AccessToken ? AccessToken : googleToken;
+    console.log("Using token:", token);
     try {
       const response = await fetch('http://127.0.0.1:8000/Scan/', {
-      // const response = await fetch('https://gc21q80j-8000.inc1.devtunnels.ms/Scan/', {
+        // const response = await fetch('https://gc21q80j-8000.inc1.devtunnels.ms/Scan/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(ip),
       });
       if (!response.ok) {
@@ -48,10 +52,14 @@ export const scanIp = createAsyncThunk(
 export const addNetwork = createAsyncThunk(
   "NetworkList/addNetwork",
   async (networkData, { rejectWithValue }) => {
+    const AccessToken = localStorage.getItem("access_token");
+    const googleToken = localStorage.getItem("google_access_token");
+    const token = AccessToken ? AccessToken : googleToken;
+    console.log("Using token:", token);
     try {
       const response = await fetch('http://127.0.0.1:8000/Network/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify(networkData),
       });
       if (!response.ok) {
@@ -70,12 +78,17 @@ export const addNetwork = createAsyncThunk(
 export const updateNetwork = createAsyncThunk(
   "NetworkList/updateNetwork",
   async ({ mac, networkData }, thunkAPI) => {
+    const AccessToken = localStorage.getItem("access_token");
+    const googleToken = localStorage.getItem("google_access_token");
+    const token = AccessToken ? AccessToken : googleToken;
+    console.log("Using token:", token);
     try {
       const response = await fetch(`http://127.0.0.1:8000/Network/${mac}/`, {
-      // const response = await fetch(`https://gc21q80j-8000.inc1.devtunnels.ms/${mac}`, {
+        // const response = await fetch(`https://gc21q80j-8000.inc1.devtunnels.ms/${mac}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(networkData)
       });
@@ -93,12 +106,16 @@ export const updateNetwork = createAsyncThunk(
 export const deleteNetwork = createAsyncThunk(
   "NetworkList/deleteNetwork",
   async ({ mac }, thunkAPI) => {
+    const AccessToken = localStorage.getItem("access_token");
+    const googleToken = localStorage.getItem("google_access_token");
+    const token = AccessToken ? AccessToken : googleToken;
     try {
       const response = await fetch(`http://127.0.0.1:8000/Network/${mac}/`, {
-      // const response = await fetch(`https://gc21q80j-8000.inc1.devtunnels.ms/${mac}/`, {
+        // const response = await fetch(`https://gc21q80j-8000.inc1.devtunnels.ms/${mac}/`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         }
       });
       if (!response.ok) {
@@ -115,7 +132,7 @@ export const deleteNetwork = createAsyncThunk(
 const initialState = {
   data: [],
   scannedData: "",
-  addedNetwork:"",
+  addedNetwork: "",
   loading: false,
   loadingScan: false,
   addLoading: false,

@@ -25,8 +25,17 @@ function PingInput() {
             ip: value
         }
 
+        const AccessToken = localStorage.getItem("access_token");
+        const googleToken = localStorage.getItem("google_access_token");
+        const token = AccessToken ? AccessToken : googleToken;
+        console.log("Using token:", token);
+
         try {
-            const response = await axios.post('http://127.0.0.1:8000/Ping/', data);
+            const response = await axios.post('http://127.0.0.1:8000/Ping/', data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             console.log('Response:', response.data);
             setPingResponse(response.data);
         } catch (error) {
@@ -101,16 +110,16 @@ function PingInput() {
                                 {
                                     moreInfo &&
                                     <div className="h-[70%] w-full p-8 rounded-xl bg-lightInputElementBgColor text-gray-500 dark:bg-darkInputElementBgColor">
-                                        <ObjectDisplay object={pingResponse.ping_output}/>
+                                        <ObjectDisplay object={pingResponse.ping_output} />
                                     </div>
                                 }
 
                                 <div className="mt-3 w-full flex justify-between">
 
                                     <button className="h-8 w-25 bg-lightButton rounded-sm text-white max-h-[34px] flex justify-center items-center"
-                                        onClick={() => {setMoreInfo(!moreInfo)}}
+                                        onClick={() => { setMoreInfo(!moreInfo) }}
                                     >
-                                        {moreInfo ? "Less Info":"More Info"}
+                                        {moreInfo ? "Less Info" : "More Info"}
                                     </button>
 
                                     <div></div>
