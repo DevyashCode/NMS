@@ -42,11 +42,8 @@ export default function SideBar() {
   ];
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 1184);
+    console.log("From Sidebar");
     console.log(user);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const toggleSidebarVisibility = () => {

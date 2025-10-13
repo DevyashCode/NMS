@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchUserDetails = createAsyncThunk(
   "users/fetchUserDetails",
   async () => {
-    const AccessToken = localStorage.getItem("access_token");
+    const AccessToken = localStorage.getItem("access");
     const googleToken = localStorage.getItem("google_access_token");
     const token = AccessToken ? AccessToken : googleToken;
     console.log("Using token:", token);
@@ -20,7 +20,7 @@ export const fetchUserDetails = createAsyncThunk(
 export const addUser = createAsyncThunk(
   "users/addUser",
   async (networkData, { rejectWithValue }) => {
-    const AccessToken = localStorage.getItem("access_token");
+    const AccessToken = localStorage.getItem("access");
     const googleToken = localStorage.getItem("google_access_token");
     const token = AccessToken ? AccessToken : googleToken;
     console.log("Using token:", token);
@@ -46,7 +46,7 @@ export const addUser = createAsyncThunk(
 export const updateUser = createAsyncThunk(
   "users/updateUser",
   async ({ userName, userData }, thunkAPI) => {
-    const AccessToken = localStorage.getItem("access_token");
+    const AccessToken = localStorage.getItem("access");
     const googleToken = localStorage.getItem("google_access_token");
     const token = AccessToken ? AccessToken : googleToken;
     console.log("Using token:", token);
@@ -73,7 +73,7 @@ export const updateUser = createAsyncThunk(
 export const deleteUser = createAsyncThunk(
   "users/deleteUser",
   async ({ email }, thunkAPI) => {
-    const AccessToken = localStorage.getItem("access_token");
+    const AccessToken = localStorage.getItem("access");
     const googleToken = localStorage.getItem("google_access_token");
     const token = AccessToken ? AccessToken : googleToken;
     console.log("Using token:", token);

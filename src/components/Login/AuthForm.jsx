@@ -22,7 +22,8 @@ const AuthForm = () => {
     if (isAuthorized) {
       navigate("/user", { replace: true });
     }
-  }, [isAuthorized, navigate]);
+  // }, [isAuthorized, navigate]);
+  }, [isAuthorized]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,6 +42,7 @@ const AuthForm = () => {
         throw new Error(resultAction.payload || "Login failed");
       }
     } catch (err) {
+      console.log(err.message);
       setError(err.message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
