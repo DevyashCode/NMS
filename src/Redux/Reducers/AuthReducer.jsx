@@ -22,6 +22,8 @@ export const refreshToken = createAsyncThunk(
         const decoded = jwtDecode(res.data.access);
 
         dispatch(setAuthorized(true));
+        console.log("From refreshToken Function!!!!!!!!!!!!!!!");
+        console.log(decoded);
         dispatch(setUser(decoded));
         return true;
       }
@@ -49,15 +51,8 @@ export const checkAuth = createAsyncThunk(
           await dispatch(refreshToken());
         } else {
           dispatch(setAuthorized(true));
-          console.log(decoded);
-          dispatch(setUser({ 
-            email: decoded.email,
-            firstname: decoded.first_name,
-            lastname: decoded.last_name,
-            role: decoded.role,
-            profile_image: decoded.profile_image,
-          }));
-          // dispatch(setUser(decoded));
+          console.log("From Check Auth!!!!!!!!");
+          dispatch(setUser(decoded));
         }
       } catch (error) {
         dispatch(logout());
@@ -70,7 +65,7 @@ export const checkAuth = createAsyncThunk(
 
         if (res.data.valid) {
           dispatch(setAuthorized(true));
-          console.log("Response Google Validate Token",res);
+          // console.log("Response Google Validate Token",res);
         } else {
           dispatch(logout());
         }

@@ -4,7 +4,7 @@ import data from "../data";
 export const fetchNetworkList = createAsyncThunk(
   "NetworkList/fetchNetworkList",
   async () => {
-    const AccessToken = localStorage.getItem("access_token");
+    const AccessToken = localStorage.getItem("access");
     const googleToken = localStorage.getItem("google_access_token");
     const token = AccessToken ? AccessToken : googleToken;
     console.log("Using token:", token);
@@ -25,7 +25,7 @@ export const fetchNetworkList = createAsyncThunk(
 export const scanIp = createAsyncThunk(
   "NetworkList/searchIp",
   async (ip, { rejectWithValue }) => {
-    const AccessToken = localStorage.getItem("access_token");
+    const AccessToken = localStorage.getItem("access");
     const googleToken = localStorage.getItem("google_access_token");
     const token = AccessToken ? AccessToken : googleToken;
     console.log("Using token:", token);
@@ -52,7 +52,7 @@ export const scanIp = createAsyncThunk(
 export const addNetwork = createAsyncThunk(
   "NetworkList/addNetwork",
   async (networkData, { rejectWithValue }) => {
-    const AccessToken = localStorage.getItem("access_token");
+    const AccessToken = localStorage.getItem("access");
     const googleToken = localStorage.getItem("google_access_token");
     const token = AccessToken ? AccessToken : googleToken;
     console.log("Using token:", token);
@@ -78,7 +78,7 @@ export const addNetwork = createAsyncThunk(
 export const updateNetwork = createAsyncThunk(
   "NetworkList/updateNetwork",
   async ({ mac, networkData }, thunkAPI) => {
-    const AccessToken = localStorage.getItem("access_token");
+    const AccessToken = localStorage.getItem("access");
     const googleToken = localStorage.getItem("google_access_token");
     const token = AccessToken ? AccessToken : googleToken;
     console.log("Using token:", token);
@@ -106,7 +106,7 @@ export const updateNetwork = createAsyncThunk(
 export const deleteNetwork = createAsyncThunk(
   "NetworkList/deleteNetwork",
   async ({ mac }, thunkAPI) => {
-    const AccessToken = localStorage.getItem("access_token");
+    const AccessToken = localStorage.getItem("access");
     const googleToken = localStorage.getItem("google_access_token");
     const token = AccessToken ? AccessToken : googleToken;
     try {

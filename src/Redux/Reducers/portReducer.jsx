@@ -4,7 +4,7 @@ import ports from "../../components/PortsAvailable/portData";
 export const fetchPortList = createAsyncThunk(
     "ports/fetchPortList",
     async () => {
-        const AccessToken = localStorage.getItem("access_token");
+        const AccessToken = localStorage.getItem("access");
         const googleToken = localStorage.getItem("google_access_token");
         const token = AccessToken ? AccessToken : googleToken;
         console.log("Using token:", token);

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { logout } from './Redux/Reducers/AuthReducer';
 
 function App() {
-  useAuthPolling();
+  // useAuthPolling();
   const dispatch = useDispatch();
 
   useEffect(() => {
