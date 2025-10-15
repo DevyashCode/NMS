@@ -35,7 +35,7 @@ export default function PortsAvailable() {
                 <div className="pw-container scrollbar-hide">
                     {
                         ports.map((port, index) => {
-                            return <PortWidget key={index} ipAddress={port.ip_address} macAddress={port.macAddress} range={port.portRange} handleClick={handlePortClick}/>
+                            return <PortWidget key={index} ipAddress={port.ipAddress} macAddress={port.macAddress} range={port.portRange} handleClick={handlePortClick}/>
                         })
                     }
                 </div>
