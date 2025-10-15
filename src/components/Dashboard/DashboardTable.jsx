@@ -13,6 +13,7 @@ import {
   NetworkListError,
   fetchNetworkList,
 } from "../../Redux/Reducers/NetworkListReducer";
+import { fetchPortList } from "../../Redux/Reducers/portReducer";
 import { UserSelector } from "../../Redux/Reducers/AuthReducer";
 import { useState, useEffect } from "react";
 import { BsUsbSymbol } from "react-icons/bs";
@@ -203,7 +204,11 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    (user.role === "admin" || user.role === "technician") && dispatch(fetchNetworkList());
+    // (user.role === "admin" || user.role === "technician") && dispatch(fetchNetworkList());
+    if (user.role === "admin" || user.role === "technician") {
+      dispatch(fetchNetworkList());
+      dispatch(fetchPortList());
+    }
   }, [dispatch]);
 
   const handlePortClick = (selectedIp) => {

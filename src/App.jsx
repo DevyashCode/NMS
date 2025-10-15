@@ -4,13 +4,17 @@ import Routes from './Routes/routes';
 import useAuthPolling from './useAuthPolling';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { logout } from './Redux/Reducers/AuthReducer';
-
+import { checkAuth,logout } from './Redux/Reducers/AuthReducer';
 function App() {
   // useAuthPolling();
   const dispatch = useDispatch();
 
+  const checkUserAuth = async () => {
+    await dispatch(checkAuth());
+  }
+
   useEffect(() => {
+    // checkUserAuth();
     return () => {
       dispatch(logout());
     };
