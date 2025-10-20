@@ -22,7 +22,6 @@ const AuthForm = () => {
     if (isAuthorized) {
       navigate("/user", { replace: true });
     }
-  // }, [isAuthorized, navigate]);
   }, [isAuthorized]);
 
   const handleSubmit = async (e) => {

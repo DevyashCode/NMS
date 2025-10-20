@@ -23,7 +23,7 @@ const team = [
     {
         name: "Devyash Rasela",
         designation: "Software Developer",
-        linkedin: "",
+        linkedin: "www.linkedin.com/in/devyash-rasela",
         image: Devyash
     },
     {
@@ -103,8 +103,10 @@ function Team() {
                                             </div>
 
                                             {/* LinkedIn Button */}
-                                            <button className='h-9 sm:h-10 px-4 sm:px-6 bg-violet-600 hover:bg-violet-700 rounded-md sm:rounded-lg text-white text-xs sm:text-sm font-medium transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105'>
-                                                LinkedIn
+                                            <button className='h-9 sm:h-10 px-4 sm:px-6 bg-violet-600 hover:bg-violet-700 rounded-md sm:rounded-lg text-white text-xs sm:text-sm font-medium transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105'
+                                                onClick={() => window.open(`https://${element.linkedin}`, "_blank")}
+                                            >
+                                               LinkedIn
                                             </button>
                                         </div>
                                     </SpotlightCard>

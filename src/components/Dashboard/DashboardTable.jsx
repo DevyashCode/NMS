@@ -8,6 +8,8 @@ import {
 } from "@tanstack/react-table";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  connectToNetworkSSE,
+  disconnectNetworkSSE,
   NetworkListSelector as dbSelector,
   NetworkListLoading,
   NetworkListError,
@@ -204,11 +206,15 @@ export default function DashboardTable({ columnFilters, setColumnFilters }) {
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    // (user.role === "admin" || user.role === "technician") && dispatch(fetchNetworkList());
     if (user.role === "admin" || user.role === "technician") {
       dispatch(fetchNetworkList());
       dispatch(fetchPortList());
+      const url = 'http://127.0.0.1:8000/api/sse/network-monitor/';
+      dispatch(connectToNetworkSSE(url));
     }
+    return () => {
+      dispatch(disconnectNetworkSSE());
+    };
   }, [dispatch]);
 
   const handlePortClick = (selectedIp) => {

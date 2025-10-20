@@ -13,13 +13,15 @@ const data = [
         title: "MITS",
         subtitle: "Madhav Institute Of Technology And Science",
         image: mitsLogo,
-        bannerImage: "https://raw.githubusercontent.com/rahulrawat95r/XamDruImg/main/loginbanner.jpg"
+        bannerImage: "https://raw.githubusercontent.com/rahulrawat95r/XamDruImg/main/loginbanner.jpg",
+        websiteUrl: "https://web.mitsgwalior.in/"
     },
     {
         title: "SDC",
         subtitle: "Software Development Club",
         image: sdcLogo,
-        bannerImage: sdcBanner
+        bannerImage: sdcBanner,
+        websiteUrl: "https://sdc.mitsgwalior.in/"
     }
 ]
 
@@ -110,7 +112,9 @@ function AffiliatedWith() {
                                                 
                                                 {/* Button */}
                                                 <div className="pb-6 sm:pb-8">
-                                                    <button className='h-10 sm:h-12 px-6 sm:px-8 bg-violet-600 hover:bg-violet-700 rounded-md sm:rounded-lg text-white text-xs sm:text-sm font-medium transition-colors duration-200 shadow-lg hover:shadow-xl'>
+                                                    <button className='h-10 sm:h-12 px-6 sm:px-8 bg-violet-600 hover:bg-violet-700 rounded-md sm:rounded-lg text-white text-xs sm:text-sm font-medium transition-colors duration-200 shadow-lg hover:shadow-xl'
+                                                        onClick={() => window.open(element.websiteUrl, "_blank")}
+                                                    >
                                                         VISIT SITE
                                                     </button>
                                                 </div>

@@ -48,7 +48,7 @@ export default function PortDisplay({ ip, handlePopupClose }) {
         pageSize: 5,
         pageIndex: 0
     });
-
+    
     const table = useReactTable({
         data: data.portInfo,
         columns,
@@ -60,7 +60,9 @@ export default function PortDisplay({ ip, handlePopupClose }) {
         getPaginationRowModel: getPaginationRowModel(),
         enableRowSelection: true,
     });
-
+    
+    const selectedRows = table.getSelectedRowModel().rows;
+    
     return (
         <>
             {/* Heading */}

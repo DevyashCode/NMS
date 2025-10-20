@@ -18,6 +18,7 @@ import { svSelector, svActions } from "../../Redux/Reducers/sideBarVisibilityRed
 import PopupContainer from "../Popups/PopupContainer";
 import mitsLogo from "./Nav Icons/mits-logo.png";
 import userAvator from "./Nav Icons/Avatar.png";
+import { useNetworkSSE } from "../../hooks/useNetworkSSE";
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -42,8 +43,6 @@ export default function SideBar() {
   ];
 
   useEffect(() => {
-    console.log("From Sidebar");
-    console.log(user);
   }, []);
 
   const toggleSidebarVisibility = () => {

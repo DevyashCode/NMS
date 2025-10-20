@@ -4,7 +4,7 @@ const data = [
         content: [
             {
                 name: "Login",
-                link: ""
+                link: "/login"
             }
         ]
     },
@@ -13,11 +13,11 @@ const data = [
         content: [
             {
                 name: "MITS",
-                link: ""
+                link: "https://web.mitsgwalior.in/"
             },
             {
                 name: "Software Development Club",
-                link: ""
+                link: "https://sdc.mitsgwalior.in/"
             },
         ]
     },
@@ -26,7 +26,7 @@ const data = [
         content: [
             {
                 name: "Software Development Club",
-                link: ""
+                link: "https://sdc.mitsgwalior.in/"
             },
             {
                 name: "Data Resource Center",
@@ -42,7 +42,7 @@ const data = [
             },
             {
                 name: "Devyash Rasela",
-                link: ""
+                link: "www.linkedin.com/in/devyash-rasela"
             },
             {
                 name: "Suyash Sharma",
@@ -71,6 +71,7 @@ function Footer(props) {
                                             <h4 
                                                 key={i} 
                                                 className="text-white/80 text-sm xl:text-base hover:text-white/100 transition-colors duration-200 cursor-pointer"
+                                                onClick={() => link.link && window.open(link.link, "_blank")}
                                             >
                                                 {link.name}
                                             </h4>
@@ -96,6 +97,8 @@ function Footer(props) {
                                             <h4 
                                                 key={i} 
                                                 className="text-white/80 text-sm hover:text-white/100 transition-colors duration-200 cursor-pointer"
+                                                onClick={() => link.link && window.open(link.link, "_blank")}
+
                                             >
                                                 {link.name}
                                             </h4>
@@ -121,6 +124,7 @@ function Footer(props) {
                                             <h4 
                                                 key={i} 
                                                 className="text-white/80 text-sm hover:text-white/100 transition-colors duration-200 cursor-pointer"
+                                                onClick={() => link.link && window.open(link.link, "_blank")}
                                             >
                                                 {link.name}
                                             </h4>

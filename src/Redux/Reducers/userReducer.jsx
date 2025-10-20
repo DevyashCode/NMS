@@ -7,7 +7,7 @@ export const fetchUserDetails = createAsyncThunk(
     const googleToken = localStorage.getItem("google_access_token");
     const token = AccessToken ? AccessToken : googleToken;
     console.log("Using token:", token);
-    const response = await fetch('http://127.0.0.1:8000/UserAuth/', {
+    const response = await fetch('http://127.0.0.1:8000/Users/', {
       headers: {
         'Authorization': `Bearer ${token}`
       }

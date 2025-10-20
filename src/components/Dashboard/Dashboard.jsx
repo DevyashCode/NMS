@@ -9,6 +9,7 @@ import statusCounter from "./statusCounter.jsx";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { UserSelector } from "../../Redux/Reducers/AuthReducer.jsx";
+import { NetworkSSEStatus } from "../../Redux/Reducers/NetworkListReducer.jsx";
 
 function Dashboard() {
     const widgets = [
@@ -51,6 +52,7 @@ function Dashboard() {
     const handleClick = (type) => {
         setColumnFilters([{ id: "type", value: type }]);
     };
+    const SSEStatus = useSelector(NetworkSSEStatus);
 
     // Temporary
     // const isAuthorized = useSelector(IsAuthorisedSelector);
@@ -72,10 +74,16 @@ function Dashboard() {
                 </div>
 
                 {/* Network Table */}
-                <div className={"w-full flex flex-col bg-lightComponentBackground dark:bg-darkComponentBackground rounded-2xl shadow-md px-8 pt-4 "+ (user.role != 'user' ? 'mt-1 mb-12 lg:mt-4 min-h-128 2xl:min-h-150' : 'pb-2')}>
+                <div className={"w-full flex flex-col bg-lightComponentBackground dark:bg-darkComponentBackground rounded-2xl shadow-md px-8 pt-4 " + (user.role != 'user' ? 'mt-1 mb-12 lg:mt-4 min-h-128 2xl:min-h-150' : 'pb-2')}>
                     {user.role != "user" &&
-                        <div className="h-12 flex items-center">
+                        <div className="h-12 flex items-center justify-between">
                             <h1 className="text-lg 2xl:text-2xl text-lightHeaderText">Network Available</h1>
+                            <div className="flex items-center gap-2">
+                                <div className={"h-[8px] w-[8px] rounded-full " + (SSEStatus === "online" ? "bg-green-600" : "bg-red-600")}></div>
+                                <p className="text-sm 2xl:text-base text-lightHeaderText">
+                                    {SSEStatus}
+                                </p>
+                            </div>
                         </div>
                     }
 
