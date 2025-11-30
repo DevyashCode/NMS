@@ -7,6 +7,7 @@ import { IsAuthorisedSelector } from "../../Redux/Reducers/AuthReducer";
 import Lottie from "lottie-react";
 import Animation from "../Loading/PurpleLoader.json"
 import mitslogo from "../../assets/mits-logo.png";
+import { NavLink } from "react-router-dom";
 
 const AuthForm = () => {
   const [email, setEmail] = useState("");
@@ -114,7 +115,7 @@ const AuthForm = () => {
               </button>
               <div className="w-full flex">
                 <div className="flex flex-grow"></div>
-                <h1 className="text-[#007AFF]">Forget Password ?</h1>
+                <NavLink to="/forget-password" className="text-[#007AFF]">Forget Password ?</NavLink>
               </div>
 
               <hr className="border-white" />
@@ -136,7 +137,6 @@ const AuthForm = () => {
           </div>
         </>
       )}
-
     </div>
   );
 };

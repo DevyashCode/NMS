@@ -16,6 +16,7 @@ import NotFound from "../Pages/NotFound.jsx";
 import LoginPage from "../components/Login/LoginPage.jsx";
 import RedirectGoogleAuth from "../components/Login/GoogleRedirectHandler.jsx";
 import Register from "../components/Login/Register.jsx";
+import ForgetPassword from "../components/Login/ForgetPassword.jsx";
 
 const Routes = () => {
     const isAuthorized = useSelector(IsAuthorisedSelector);
@@ -29,6 +30,9 @@ const Routes = () => {
         },
         {
             path: "/login", element: <LoginPage />
+        },
+        {
+            path: "/forget-password", element: <ForgetPassword />
         },
         {
             path: "/login/callback", element: <RedirectGoogleAuth />

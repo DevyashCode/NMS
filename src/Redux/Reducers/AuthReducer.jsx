@@ -65,6 +65,7 @@ export const checkAuth = createAsyncThunk(
 
         if (res.data.valid) {
           dispatch(setAuthorized(true));
+          dispatch(setUser(res.data.user));
           // console.log("Response Google Validate Token",res);
         } else {
           dispatch(logout());

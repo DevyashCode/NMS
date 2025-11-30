@@ -14,10 +14,8 @@ function App() {
   }
 
   useEffect(() => {
-    // checkUserAuth();
-    return () => {
-      dispatch(logout());
-    };
+    console.log("App Mounted");
+    checkUserAuth();
   }, [])
 
   return (
